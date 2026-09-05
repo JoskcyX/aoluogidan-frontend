@@ -15,6 +15,10 @@
   --color-line: #e3e1da;      /* hairline borders/dividers */
   --color-brass: #a6813c;     /* restrained gold/brass accent */
   --color-brass-deep: #8a6a2e;
+  --color-emerald: #1f6f54;   /* accent colours used on interactive cards */
+  --color-emerald-deep: #16543f;
+  --color-burgundy: #7c2d3a;
+  --color-navy: #1f3a5f;
 
   --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
