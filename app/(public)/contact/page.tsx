@@ -7,14 +7,11 @@ import { ContactForm } from "./contact-form";
 export const metadata = { title: "Contact Us" };
 
 export default async function ContactPage() {
-  const [{ settings }, { pageHeroes }] = await Promise.all([
-    api.getSiteSettings().catch(() => ({ settings: null })),
-    api.getPageHeroes().catch(() => ({ pageHeroes: {} })),
-  ]);
+  const { settings } = await api.getSiteSettings().catch(() => ({ settings: null }));
 
   return (
     <>
-      <PageHero eyebrow="Get in Touch" title="Contact Us" image={pageHeroes?.contact ?? settings?.heroImageUrl} />
+      <PageHero eyebrow="Get in Touch" title="Contact Us" image={settings?.heroImageUrl} />
 
       <Container className="grid gap-16 py-20 lg:grid-cols-5">
         <Reveal className="lg:col-span-2">

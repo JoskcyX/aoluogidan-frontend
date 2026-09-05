@@ -14,7 +14,6 @@ export async function generateMetadata(): Promise<Metadata> {
     verification: settings?.googleVerification
       ? { google: settings.googleVerification }
       : undefined,
-    icons: settings?.logoUrl ? { icon: settings.logoUrl, shortcut: settings.logoUrl, apple: settings.logoUrl } : undefined,
   };
 }
 
