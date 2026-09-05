@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { HeroSlideshow } from "@/components/layout/hero-slideshow";
 import { ArrowRight, Scale, Briefcase, Building, Lightbulb, Users, Landmark, Quote } from "lucide-react";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
@@ -49,7 +50,7 @@ export default async function HomePage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-ink text-white">
-        {/* Photo collage background */}
+        {/* Sliding hero photos — one at a time, crossfading */}
         {(() => {
           const heroPhotos = [
             settings.heroImageUrl,
@@ -60,22 +61,7 @@ export default async function HomePage() {
 
           if (heroPhotos.length === 0) return null;
 
-          return (
-            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 lg:grid-cols-4 lg:grid-rows-1">
-              {heroPhotos.map((url, i) => (
-                <div key={url} className="relative h-full w-full">
-                  <Image
-                    src={url}
-                    alt=""
-                    fill
-                    priority={i === 0}
-                    sizes="(min-width: 1024px) 25vw, 50vw"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          );
+          return <HeroSlideshow photos={heroPhotos} />;
         })()}
 
         {/* Dark-to-transparent gradient so the text on the left stays readable
