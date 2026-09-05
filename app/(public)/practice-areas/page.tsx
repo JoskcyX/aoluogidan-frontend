@@ -8,10 +8,9 @@ import { ArrowRight } from "lucide-react";
 export const metadata = { title: "Practice Areas" };
 
 export default async function PracticeAreasPage() {
-  const [{ practiceAreas: areas }, { settings }, { pageHeroes }] = await Promise.all([
+  const [{ practiceAreas: areas }, { settings }] = await Promise.all([
     api.getPracticeAreas().catch(() => ({ practiceAreas: [] })),
     api.getSiteSettings().catch(() => ({ settings: null })),
-    api.getPageHeroes().catch(() => ({ pageHeroes: {} })),
   ]);
 
   return (
@@ -20,7 +19,7 @@ export default async function PracticeAreasPage() {
         eyebrow="What We Do"
         title="Practice Areas"
         description="We advise businesses and individuals across the following areas of law."
-        image={pageHeroes?.["practice-areas"] ?? settings?.heroImageUrl}
+        image={settings?.heroImageUrl}
       />
 
       <Container className="py-20">

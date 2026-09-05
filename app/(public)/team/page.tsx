@@ -8,10 +8,9 @@ import { Reveal } from "@/components/ui/reveal";
 export const metadata = { title: "Our Team" };
 
 export default async function TeamPage() {
-  const [{ lawyers: team }, { settings }, { pageHeroes }] = await Promise.all([
+  const [{ lawyers: team }, { settings }] = await Promise.all([
     api.getLawyers().catch(() => ({ lawyers: [] })),
     api.getSiteSettings().catch(() => ({ settings: null })),
-    api.getPageHeroes().catch(() => ({ pageHeroes: {} })),
   ]);
 
   return (
@@ -20,7 +19,7 @@ export default async function TeamPage() {
         eyebrow="Our Team"
         title="Legal Professionals"
         description="Meet the lawyers behind our firm's work."
-        image={pageHeroes?.team ?? settings?.heroImageUrl ?? "/law-firm-bg.jpg"}
+        image={settings?.heroImageUrl ?? "/law-firm-bg.jpg"}
       />
 
       {/* Team Section */}

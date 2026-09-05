@@ -8,21 +8,23 @@ import { Reveal } from "@/components/ui/reveal";
 export const metadata = { title: "About Us" };
 
 export default async function AboutPage() {
-  const [{ about, values = [] }, { settings }, { pageHeroes }] = await Promise.all([
+  const [{ about, values = [] }, { settings }] = await Promise.all([
     api.getAboutContent().catch(() => ({ about: null, values: [] })),
     api.getSiteSettings().catch(() => ({ settings: null })),
-    api.getPageHeroes().catch(() => ({ pageHeroes: {} })),
   ]);
 
   if (!about) return null;
 
   return (
     <>
+      {/* `about.heroImageUrl` will be used automatically once your CMS exposes
+          an image field for this page; until then it falls back to the hero
+          photo already set in Site Settings. */}
       <PageHero
         eyebrow="About Us"
         title={about.introHeading}
         description={about.introText ?? undefined}
-        image={pageHeroes?.about ?? settings?.heroImageUrl}
+        image={about.heroImageUrl ?? settings?.heroImageUrl}
       />
 
       <Container className="grid gap-16 py-20 lg:grid-cols-3">

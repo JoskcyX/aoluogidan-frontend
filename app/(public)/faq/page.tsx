@@ -7,10 +7,9 @@ import { ChevronDown } from "lucide-react";
 export const metadata = { title: "Frequently Asked Questions" };
 
 export default async function FaqPage() {
-  const [{ faqs: allFaqs = [] }, { settings }, { pageHeroes }] = await Promise.all([
+  const [{ faqs: allFaqs = [] }, { settings }] = await Promise.all([
     api.getFaqs().catch(() => ({ faqs: [] })),
     api.getSiteSettings().catch(() => ({ settings: null })),
-    api.getPageHeroes().catch(() => ({ pageHeroes: {} })),
   ]);
 
   const grouped = (allFaqs as any[]).reduce<Record<string, any[]>>((acc, f) => {
@@ -25,7 +24,7 @@ export default async function FaqPage() {
         eyebrow="FAQ"
         title="Frequently Asked Questions"
         description="Answers to common questions about working with our firm."
-        image={pageHeroes?.faq ?? settings?.heroImageUrl}
+        image={settings?.heroImageUrl}
       />
 
       <Container className="max-w-3xl py-20">
