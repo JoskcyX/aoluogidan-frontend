@@ -61,6 +61,7 @@ export const api = {
     publicGet(`/api/public/testimonials${params?.featured ? "?featured=true" : ""}`),
   getAboutContent: () => publicGet("/api/public/about"),
   getPageBySlug: (slug: string) => publicGet(`/api/public/pages/${encodeURIComponent(slug)}`),
+  getPageHeroes: () => publicGet("/api/public/page-heroes"),
   getSitemapData: () => publicGet("/api/public/sitemap-data"),
 };
 
