@@ -8,6 +8,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "pub-b86efe7f00ee4ca188659dc7d6f959dc.r2.dev",
       },
+      {
+        protocol: "https",
+        hostname: "*.storage.c-*.us-east-2.aws.neon.tech",
+      },
+      {
+        protocol: "https",
+        hostname: "*.storage.c-*.eu-central-1.aws.neon.tech",
+      },
     ],
   },
 
