@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
             <Lock className="text-brass" size={22} />
           </div>
           <h1 className="font-display text-2xl text-white">Admin Sign In</h1>
-          <p className="mt-1 text-sm text-white/50">A. Oluogidan & Co dashboard</p>
+          <p className="mt-1 text-sm text-white/50">Harcourt & Vale LLP dashboard</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5 border border-white/10 bg-white p-8">

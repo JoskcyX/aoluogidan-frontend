@@ -25,10 +25,10 @@ export default async function LawyerProfilePage({ params }: { params: { slug: st
 
   return (
     <Container className="grid gap-16 py-20 lg:grid-cols-3">
-      <div>
-        <div className="aspect-[4/5] overflow-hidden bg-surface">
+      <div className="mx-auto w-full max-w-[320px] lg:max-w-none">
+        <div className="aspect-[4/5] overflow-hidden rounded-lg bg-surface shadow-md">
           {lawyer.photoUrl ? (
-            <Image src={lawyer.photoUrl} alt={lawyer.name} width={500} height={625} className="h-full w-full object-cover" />
+            <Image src={lawyer.photoUrl} alt={lawyer.name} width={380} height={475} className="h-full w-full object-cover" />
           ) : (
             <div className="flex h-full items-center justify-center text-slate">No photo</div>
           )}

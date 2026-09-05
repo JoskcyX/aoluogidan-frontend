@@ -6,8 +6,6 @@ import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { Reveal } from "@/components/ui/reveal";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
 
 const ICONS: Record<string, React.ElementType> = {
   scale: Scale,
@@ -72,53 +70,29 @@ export default async function HomePage() {
 
         <Container className="relative grid gap-12 py-24 lg:grid-cols-12 lg:py-32">
           <div className="lg:col-span-7">
-            <p
-              className="mb-5 animate-fade-up text-xs font-semibold uppercase tracking-[0.25em] text-brass"
-              style={{ animationDelay: "80ms" }}
-            >
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-brass">
               {settings.tagline}
             </p>
-            <h1
-              className="animate-fade-up font-display text-4xl leading-[1.1] sm:text-5xl lg:text-6xl"
-              style={{ animationDelay: "200ms" }}
-            >
+            <h1 className="font-display text-4xl leading-[1.1] sm:text-5xl lg:text-6xl">
               {settings.heroHeading}
             </h1>
             {settings.heroSubheading && (
-              <p
-                className="mt-6 max-w-xl animate-fade-up text-base leading-relaxed text-white/70"
-                style={{ animationDelay: "320ms" }}
-              >
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70">
                 {settings.heroSubheading}
               </p>
             )}
-            <div
-              className="mt-10 flex animate-fade-up flex-wrap gap-4"
-              style={{ animationDelay: "440ms" }}
-            >
+            <div className="mt-10 flex flex-wrap gap-4">
               <Link href={settings.heroCtaLink}>
-                <Button size="lg" className="transition-transform duration-200 hover:scale-105">
-                  {settings.heroCtaText}
-                </Button>
+                <Button size="lg">{settings.heroCtaText}</Button>
               </Link>
               <Link href={settings.heroSecondaryCtaLink}>
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="border-white text-white transition-transform duration-200 hover:scale-105 hover:bg-white hover:text-ink"
-                >
+                <Button size="lg" variant="secondary" className="border-white text-white hover:bg-white hover:text-ink">
                   {settings.heroSecondaryCtaText}
                 </Button>
               </Link>
             </div>
           </div>
         </Container>
-
-        <div className="absolute inset-x-0 bottom-6 hidden justify-center sm:flex">
-          <span className="h-9 w-5 animate-bounce-slow rounded-full border border-white/40" aria-hidden>
-            <span className="mx-auto mt-1.5 block h-1.5 w-1.5 rounded-full bg-white/70" />
-          </span>
-        </div>
       </section>
 
       {/* Stats */}
@@ -129,13 +103,11 @@ export default async function HomePage() {
             { value: `${settings.statLawyersCount}+`, label: "Legal Professionals" },
             { value: `${settings.statPracticeAreasCount}+`, label: "Practice Areas" },
             { value: `${settings.statClientsServed}+`, label: "Clients Served" },
-          ].map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 100} className="text-center lg:text-left">
-              <p className="font-display text-4xl text-ink">
-                <AnimatedCounter value={stat.value} />
-              </p>
+          ].map((stat) => (
+            <div key={stat.label} className="text-center lg:text-left">
+              <p className="font-display text-4xl text-ink">{stat.value}</p>
               <p className="mt-1 text-sm text-slate">{stat.label}</p>
-            </Reveal>
+            </div>
           ))}
         </Container>
       </section>
@@ -143,34 +115,31 @@ export default async function HomePage() {
       {/* Practice Areas */}
       <section className="py-24">
         <Container>
-          <Reveal className="flex flex-wrap items-end justify-between gap-6">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading eyebrow="What We Do" title="Practice Areas" />
-            <Link href="/practice-areas" className="link-underline flex items-center gap-1 text-sm font-medium text-brass-deep">
+            <Link href="/practice-areas" className="flex items-center gap-1 text-sm font-medium text-brass-deep hover:underline">
               View all practice areas <ArrowRight size={14} />
             </Link>
-          </Reveal>
+          </div>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {areasToShow.map((area: any, i: number) => {
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {areasToShow.map((area: any) => {
               const Icon = ICONS[area.iconName ?? "scale"] ?? Scale;
               return (
-                <Reveal key={area.id} delay={i * 80}>
-                  <Link
-                    href={`/practice-areas/${area.slug}`}
-                    className="group block h-full bg-white p-8 transition-all duration-300 hover:z-10 hover:-translate-y-1 hover:bg-surface hover:shadow-lg"
-                  >
-                    <Icon
-                      className="text-brass transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                      size={28}
-                      strokeWidth={1.5}
-                    />
-                    <h3 className="mt-5 font-display text-lg text-ink">{area.name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate">{area.shortDescription}</p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brass-deep opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
-                      Learn more <ArrowRight size={14} />
-                    </span>
-                  </Link>
-                </Reveal>
+                <Link
+                  key={area.id}
+                  href={`/practice-areas/${area.slug}`}
+                  className="group rounded-lg border border-line bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/30 hover:shadow-lg"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 transition-colors group-hover:bg-accent/15">
+                    <Icon className="text-accent" size={24} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="mt-5 font-display text-lg text-ink">{area.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate">{area.shortDescription}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brass-deep opacity-0 transition-opacity group-hover:opacity-100">
+                    Learn more <ArrowRight size={14} />
+                  </span>
+                </Link>
               );
             })}
           </div>
@@ -181,34 +150,32 @@ export default async function HomePage() {
       {lawyersToShow.length > 0 && (
         <section className="border-t border-line bg-surface py-24">
           <Container>
-            <Reveal className="flex flex-wrap items-end justify-between gap-6">
+            <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHeading eyebrow="Meet the Team" title="Our Legal Professionals" />
-              <Link href="/team" className="link-underline flex items-center gap-1 text-sm font-medium text-brass-deep">
+              <Link href="/team" className="flex items-center gap-1 text-sm font-medium text-brass-deep hover:underline">
                 Meet the full team <ArrowRight size={14} />
               </Link>
-            </Reveal>
+            </div>
 
             <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {lawyersToShow.map((lawyer: any, i: number) => (
-                <Reveal key={lawyer.id} delay={i * 80}>
-                  <Link href={`/team/${lawyer.slug}`} className="group block">
-                    <div className="aspect-[4/5] overflow-hidden bg-line">
-                      {lawyer.photoUrl ? (
-                        <Image
-                          src={lawyer.photoUrl}
-                          alt={lawyer.name}
-                          width={400}
-                          height={500}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-slate">No photo</div>
-                      )}
-                    </div>
-                    <h3 className="mt-4 font-display text-lg text-ink transition-colors group-hover:text-brass-deep">{lawyer.name}</h3>
-                    <p className="text-sm text-brass-deep">{lawyer.position}</p>
-                  </Link>
-                </Reveal>
+              {lawyersToShow.map((lawyer: any) => (
+                <Link key={lawyer.id} href={`/team/${lawyer.slug}`} className="group">
+                  <div className="aspect-[4/5] overflow-hidden rounded-lg bg-line shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
+                    {lawyer.photoUrl ? (
+                      <Image
+                        src={lawyer.photoUrl}
+                        alt={lawyer.name}
+                        width={400}
+                        height={500}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-slate">No photo</div>
+                    )}
+                  </div>
+                  <h3 className="mt-4 font-display text-lg text-ink">{lawyer.name}</h3>
+                  <p className="text-sm text-brass-deep">{lawyer.position}</p>
+                </Link>
               ))}
             </div>
           </Container>
@@ -219,28 +186,27 @@ export default async function HomePage() {
       {latestPosts.length > 0 && (
         <section className="py-24">
           <Container>
-            <Reveal className="flex flex-wrap items-end justify-between gap-6">
+            <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHeading eyebrow="Insights" title="Legal Insights" />
-              <Link href="/insights" className="link-underline flex items-center gap-1 text-sm font-medium text-brass-deep">
+              <Link href="/insights" className="flex items-center gap-1 text-sm font-medium text-brass-deep hover:underline">
                 All insights <ArrowRight size={14} />
               </Link>
-            </Reveal>
+            </div>
 
             <div className="mt-12 grid gap-10 lg:grid-cols-3">
-              {latestPosts.map((post: any, i: number) => (
-                <Reveal key={post.id} delay={i * 80}>
-                <Link href={`/insights/${post.slug}`} className="group block transition-transform duration-300 hover:-translate-y-1">
-                  <div className="aspect-[16/10] overflow-hidden bg-surface">
+              {latestPosts.map((post: any) => (
+                <Link key={post.id} href={`/insights/${post.slug}`} className="group block">
+                  <div className="aspect-[16/10] overflow-hidden rounded-lg bg-surface shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
                     {post.featuredImageUrl ? (
                       <Image
                         src={post.featuredImageUrl}
                         alt={post.title}
                         width={600}
                         height={375}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="flex h-full items-center justify-center text-slate">A. Oluogidan & Co</div>
+                      <div className="flex h-full items-center justify-center text-slate">Harcourt & Vale</div>
                     )}
                   </div>
                   <div className="mt-5">
@@ -264,7 +230,6 @@ export default async function HomePage() {
                     </p>
                   </div>
                 </Link>
-                </Reveal>
               ))}
             </div>
           </Container>
@@ -275,19 +240,15 @@ export default async function HomePage() {
       {testimonialsToShow.length > 0 && (
         <section className="border-t border-line bg-ink py-24 text-white">
           <Container>
-            <Reveal>
-              <SectionHeading eyebrow="Client Perspectives" title="What Clients Say" light align="center" />
-            </Reveal>
+            <SectionHeading eyebrow="Client Perspectives" title="What Clients Say" light align="center" />
             <div className="mt-12 grid gap-8 lg:grid-cols-3">
-              {testimonialsToShow.map((t: any, i: number) => (
-                <Reveal key={t.id} delay={i * 100}>
-                  <div className="h-full border border-white/10 p-8 transition-colors duration-300 hover:border-brass/50">
-                    <Quote className="text-brass" size={24} />
-                    <p className="mt-4 text-sm leading-relaxed text-white/80">&ldquo;{t.testimonial}&rdquo;</p>
-                    <p className="mt-6 text-sm font-medium text-white">{t.clientName}</p>
-                    {t.companyPosition && <p className="text-xs text-white/50">{t.companyPosition}</p>}
-                  </div>
-                </Reveal>
+              {testimonialsToShow.map((t: any) => (
+                <div key={t.id} className="rounded-lg border border-white/10 bg-white/[0.03] p-8 transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.06]">
+                  <Quote className="text-brass" size={24} />
+                  <p className="mt-4 text-sm leading-relaxed text-white/80">&ldquo;{t.testimonial}&rdquo;</p>
+                  <p className="mt-6 text-sm font-medium text-white">{t.clientName}</p>
+                  {t.companyPosition && <p className="text-xs text-white/50">{t.companyPosition}</p>}
+                </div>
               ))}
             </div>
           </Container>
@@ -297,15 +258,13 @@ export default async function HomePage() {
       {/* Consultation CTA */}
       <section className="py-24">
         <Container>
-          <Reveal className="flex flex-col items-center gap-6 border border-line bg-surface px-8 py-16 text-center">
+          <div className="flex flex-col items-center gap-6 rounded-xl border border-line bg-gradient-to-br from-surface to-accent/[0.06] px-8 py-16 text-center">
             <h2 className="font-display text-3xl text-ink sm:text-4xl">Need Legal Advice?</h2>
             <p className="max-w-md text-slate">Speak with our legal team about your situation.</p>
             <Link href="/consultation">
-              <Button size="lg" className="transition-transform duration-200 hover:scale-105">
-                Request a Consultation
-              </Button>
+              <Button size="lg">Request a Consultation</Button>
             </Link>
-          </Reveal>
+          </div>
         </Container>
       </section>
     </>

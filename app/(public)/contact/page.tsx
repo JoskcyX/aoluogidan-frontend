@@ -1,7 +1,6 @@
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/layout/page-hero";
-import { Reveal } from "@/components/ui/reveal";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { ContactForm } from "./contact-form";
 
 export const metadata = { title: "Contact Us" };
@@ -11,10 +10,14 @@ export default async function ContactPage() {
 
   return (
     <>
-      <PageHero eyebrow="Get in Touch" title="Contact Us" image={settings?.heroImageUrl} />
+      <section className="border-b border-line bg-surface py-20">
+        <Container>
+          <SectionHeading eyebrow="Get in Touch" title="Contact Us" />
+        </Container>
+      </section>
 
       <Container className="grid gap-16 py-20 lg:grid-cols-5">
-        <Reveal className="lg:col-span-2">
+        <div className="lg:col-span-2">
           <h2 className="font-display text-xl text-ink">Office</h2>
           {settings?.address && <p className="mt-2 whitespace-pre-line text-sm text-slate">{settings.address}</p>}
 
@@ -41,11 +44,11 @@ export default async function ContactPage() {
               />
             </div>
           )}
-        </Reveal>
+        </div>
 
-        <Reveal delay={120} className="lg:col-span-3">
+        <div className="lg:col-span-3">
           <ContactForm />
-        </Reveal>
+        </div>
       </Container>
     </>
   );
