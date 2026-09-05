@@ -1,4 +1,4 @@
-# Harcourt & Vale LLP — Law Firm Website & Admin CMS
+# A. Oluogidan & Co — Law Firm Website & Admin CMS
 
 A production-oriented full-stack law firm website with a custom admin dashboard, built with Next.js, TypeScript, Tailwind CSS, and PostgreSQL. Built and verified end-to-end: a real Postgres database, real migrations, a real seed, a clean production build, and a tested login → dashboard → publish flow.
 
@@ -100,8 +100,8 @@ The seed script creates two accounts:
 
 | Email | Password | Role |
 |---|---|---|
-| `admin@harcourtvale.example` | `ChangeMe123!` | Super Admin |
-| `editor@harcourtvale.example` | `ChangeMe123!` | Editor |
+| `admin@aoluogidan.example` | `ChangeMe123!` | Super Admin |
+| `editor@aoluogidan.example` | `ChangeMe123!` | Editor |
 
 **Change both passwords immediately** — go to Admin → Admin Users → Edit, or in a fresh production database, skip the seed's demo accounts entirely and create your first real Super Admin directly in the database:
 

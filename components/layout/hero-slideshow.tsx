@@ -22,14 +22,16 @@ export function HeroSlideshow({ photos }: { photos: string[] }) {
           className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
           style={{ opacity: i === index ? 1 : 0 }}
         >
-          <Image
-            src={url}
-            alt=""
-            fill
-            priority={i === 0}
-            sizes="100vw"
-            className="object-cover"
-          />
+          <div className={i === index ? "h-full w-full animate-kenburns" : "h-full w-full"}>
+            <Image
+              src={url}
+              alt=""
+              fill
+              priority={i === 0}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       ))}
     </div>
