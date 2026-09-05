@@ -1,22 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HeroSlideshow } from "@/components/layout/hero-slideshow";
-import { ArrowRight, Scale, Briefcase, Building, Lightbulb, Users, Landmark, Quote } from "lucide-react";
+import { ArrowRight, Quote } from "lucide-react";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-
-const ICONS: Record<string, React.ElementType> = {
-  scale: Scale,
-  briefcase: Briefcase,
-  building: Building,
-  lightbulb: Lightbulb,
-  users: Users,
-  landmark: Landmark,
-};
+import { PracticeAreaCard } from "@/components/ui/practice-area-card";
 
 export default async function HomePage() {
   const [
@@ -150,29 +142,12 @@ export default async function HomePage() {
             </Link>
           </Reveal>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {areasToShow.map((area: any, i: number) => {
-              const Icon = ICONS[area.iconName ?? "scale"] ?? Scale;
-              return (
-                <Reveal key={area.id} delay={i * 80}>
-                  <Link
-                    href={`/practice-areas/${area.slug}`}
-                    className="group block h-full bg-white p-8 transition-all duration-300 hover:z-10 hover:-translate-y-1 hover:bg-surface hover:shadow-lg"
-                  >
-                    <Icon
-                      className="text-brass transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                      size={28}
-                      strokeWidth={1.5}
-                    />
-                    <h3 className="mt-5 font-display text-lg text-ink">{area.name}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate">{area.shortDescription}</p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brass-deep opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
-                      Learn more <ArrowRight size={14} />
-                    </span>
-                  </Link>
-                </Reveal>
-              );
-            })}
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {areasToShow.map((area: any, i: number) => (
+              <Reveal key={area.id} delay={i * 80}>
+                <PracticeAreaCard area={area} index={i} />
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
