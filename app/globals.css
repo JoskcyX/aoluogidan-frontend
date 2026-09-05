@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  /* ------------------------------------------------------------------ */
+  /* Brand palette — edit these to rebrand the whole site from one place */
+  /* ------------------------------------------------------------------ */
+  --color-ink: #14181f;       /* deep navy/charcoal — primary text, dark sections */
+  --color-paper: #ffffff;     /* white */
+  --color-surface: #f7f6f3;   /* warm off-white — section backgrounds */
+  --color-slate: #5b6472;     /* muted secondary text */
+  --color-line: #e3e1da;      /* hairline borders/dividers */
+  --color-brass: #a6813c;     /* restrained gold/brass accent */
+  --color-brass-deep: #8a6a2e;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background-color: var(--color-brass);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 2px;
+}
+
+/* Rich text (blog articles, bio fields) rendered from the CMS */
+.prose-legal {
+  max-width: 68ch;
+  color: var(--color-ink);
+}
+.prose-legal h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-legal h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose-legal p {
+  margin-bottom: 1.1rem;
+  line-height: 1.75;
+  color: var(--color-slate);
+}
+.prose-legal ul,
+.prose-legal ol {
+  margin: 0 0 1.1rem 1.5rem;
+  color: var(--color-slate);
+}
+.prose-legal li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+.prose-legal a {
+  color: var(--color-brass-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-legal blockquote {
+  border-left: 3px solid var(--color-brass);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--color-ink);
+  margin: 1.5rem 0;
+}
+.prose-legal table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+.prose-legal th,
+.prose-legal td {
+  border: 1px solid var(--color-line);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.prose-legal img {
+  border-radius: 2px;
+  margin: 1.5rem 0;
+}
