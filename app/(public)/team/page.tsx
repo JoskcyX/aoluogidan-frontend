@@ -19,7 +19,7 @@ export default async function TeamPage() {
         <div
           className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
           style={{
-            backgroundImage: "url('/images/law-firm-bg.jpg')",
+            backgroundImage: "url('/law-firm-bg.jpg')",
           }}
         />
 
