@@ -13,16 +13,32 @@ export default async function TeamPage() {
 
   return (
     <>
-      <section className="border-b border-line bg-surface py-20">
-        <Container>
-          <SectionHeading
-            eyebrow="Our Team"
-            title="Legal Professionals"
-            description="Meet the lawyers behind our firm's work."
-          />
-        </Container>
+      {/* Page Header */}
+      <section className="relative overflow-hidden border-b border-line bg-surface py-20">
+        {/* Subtle Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
+          style={{
+            backgroundImage: "url('/images/law-firm-bg.jpg')",
+          }}
+        />
+
+        {/* Cream Overlay */}
+        <div className="absolute inset-0 bg-surface/90" />
+
+        {/* Header Content */}
+        <div className="relative z-10">
+          <Container>
+            <SectionHeading
+              eyebrow="Our Team"
+              title="Legal Professionals"
+              description="Meet the lawyers behind our firm's work."
+            />
+          </Container>
+        </div>
       </section>
 
+      {/* Team Section */}
       <Container className="py-20">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:justify-items-center">
           {team.map((lawyer: any) => (
