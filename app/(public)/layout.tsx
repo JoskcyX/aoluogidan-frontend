@@ -17,7 +17,7 @@ export default async function PublicLayout({ children }: { children: React.React
 
   return (
     <>
-      <SiteHeader firmName={settings?.firmName ?? "Law Firm"} logoUrl={settings?.logoUrl} />
+      <SiteHeader firmName={settings?.firmName ?? "Law Firm"} />
       <main>{children}</main>
       {settings && <SiteFooter settings={settings} practiceAreas={areas} />}
     </>
