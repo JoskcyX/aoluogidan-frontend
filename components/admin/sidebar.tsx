@@ -87,7 +87,7 @@ export function AdminSidebar({ role, userName }: { role: "SUPER_ADMIN" | "EDITOR
         )}
       >
         <div className="hidden border-b border-white/10 px-6 py-6 lg:block">
-          <p className="font-display text-lg text-white">Harcourt & Vale</p>
+          <p className="font-display text-lg text-white">A. Oluogidan & Co</p>
           <p className="text-xs text-white/40">Admin Dashboard</p>
         </div>
         {Nav}

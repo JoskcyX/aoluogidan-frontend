@@ -44,6 +44,34 @@ body {
   outline-offset: 2px;
 }
 
+/* Underline that grows from the left on hover — used for nav links */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 100%;
+  background-color: var(--color-brass-deep);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease-out;
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Accordion chevron rotation (FAQ page) */
+details[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-chevron {
+  transition: transform 0.25s ease-out;
+}
+
 /* Rich text (blog articles, bio fields) rendered from the CMS */
 .prose-legal {
   max-width: 68ch;
