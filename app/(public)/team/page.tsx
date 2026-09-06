@@ -25,17 +25,17 @@ export default async function TeamPage() {
 
       {/* Team Section */}
       <Container className="py-20">
-        <div className="grid gap-6 sm:grid-cols-3 lg:grid-cols-5 lg:justify-items-center">
+        <div className="flex flex-wrap justify-center gap-6">
           {team.map((lawyer: any, i: number) => (
-            <Reveal key={lawyer.id} delay={i * 60} className="w-full max-w-[170px]">
+            <Reveal key={lawyer.id} delay={i * 60} className="w-32 sm:w-36">
               <Link href={`/team/${lawyer.slug}`} className="group block">
                 <div className="aspect-square overflow-hidden rounded-2xl bg-surface shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
                   {lawyer.photoUrl ? (
                     <Image
                       src={lawyer.photoUrl}
                       alt={lawyer.name}
-                      width={200}
-                      height={200}
+                      width={144}
+                      height={144}
                       unoptimized
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -46,11 +46,11 @@ export default async function TeamPage() {
                   )}
                 </div>
 
-                <h3 className="mt-3 font-display text-base text-ink transition-colors group-hover:text-brass-deep">
+                <h3 className="mt-3 text-center font-display text-sm text-ink transition-colors group-hover:text-brass-deep">
                   {lawyer.name}
                 </h3>
 
-                <p className="text-xs text-brass-deep">
+                <p className="text-center text-xs text-brass-deep">
                   {lawyer.position}
                 </p>
               </Link>

@@ -41,19 +41,18 @@ export function SiteHeader({ firmName, logoUrl }: { firmName: string; logoUrl?: 
         )}
       >
         <Link href="/" className="flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02]">
-          {logoUrl ? (
+          {logoUrl && (
             <Image
               src={logoUrl}
-              alt={firmName}
+              alt=""
               width={scrolled ? 36 : 44}
               height={scrolled ? 36 : 44}
               unoptimized
               className="w-auto object-contain transition-all duration-300"
               style={{ height: scrolled ? 36 : 44 }}
             />
-          ) : (
-            <span className="font-display text-xl tracking-tight text-ink">{firmName}</span>
           )}
+          <span className="font-display text-xl tracking-tight text-ink">{firmName}</span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
