@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export function SiteHeader({ firmName }: { firmName: string }) {
+export function SiteHeader({ firmName, logoUrl }: { firmName: string; logoUrl?: string | null }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -39,8 +40,20 @@ export function SiteHeader({ firmName }: { firmName: string }) {
           scrolled ? "h-16" : "h-20"
         )}
       >
-        <Link href="/" className="font-display text-xl tracking-tight text-ink transition-transform duration-200 hover:scale-[1.02]">
-          {firmName}
+        <Link href="/" className="flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02]">
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt={firmName}
+              width={scrolled ? 36 : 44}
+              height={scrolled ? 36 : 44}
+              unoptimized
+              className="w-auto object-contain transition-all duration-300"
+              style={{ height: scrolled ? 36 : 44 }}
+            />
+          ) : (
+            <span className="font-display text-xl tracking-tight text-ink">{firmName}</span>
+          )}
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

@@ -15,9 +15,10 @@ export default async function InsightsPage({
   searchParams: { page?: string; category?: string };
 }) {
   const page = Math.max(1, Number(searchParams.page ?? 1));
-  const [{ categories = [] }, { settings }] = await Promise.all([
+  const [{ categories = [] }, { settings }, { pageHeroes }] = await Promise.all([
     api.getBlogCategories().catch(() => ({ categories: [] })),
     api.getSiteSettings().catch(() => ({ settings: null })),
+    api.getPageHeroes().catch(() => ({ pageHeroes: {} })),
   ]);
   const activeCategory = categories.find((c: any) => c.slug === searchParams.category);
 
@@ -31,7 +32,7 @@ export default async function InsightsPage({
         eyebrow="Insights"
         title="Legal Insights & News"
         description="Analysis and updates from our legal team."
-        image={settings?.heroImageUrl}
+        image={pageHeroes?.insights ?? settings?.heroImageUrl}
       />
 
       <Container className="py-20">

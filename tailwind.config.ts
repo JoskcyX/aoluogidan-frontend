@@ -17,6 +17,10 @@ const config: Config = {
         line: "var(--color-line)",
         brass: "var(--color-brass)",
         "brass-deep": "var(--color-brass-deep)",
+        emerald: "var(--color-emerald)",
+        "emerald-deep": "var(--color-emerald-deep)",
+        burgundy: "var(--color-burgundy)",
+        navy: "var(--color-navy)",
         surface: "var(--color-surface)",
       },
       fontFamily: {

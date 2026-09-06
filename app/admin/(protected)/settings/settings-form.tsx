@@ -11,6 +11,7 @@ import { ImageUploader } from "@/components/admin/image-uploader";
 import type { SiteSettings } from "@/lib/types";
 
 export function SettingsForm({ settings }: { settings: SiteSettings }) {
+  const [logoUrl, setLogoUrl] = useState<string | null>(settings.logoUrl ?? null);
   const [heroImageUrl, setHeroImageUrl] = useState<string | null>(settings.heroImageUrl ?? null);
   const [heroImageUrl2, setHeroImageUrl2] = useState<string | null>(settings.heroImageUrl2 ?? null);
   const [heroImageUrl3, setHeroImageUrl3] = useState<string | null>(settings.heroImageUrl3 ?? null);
@@ -23,7 +24,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
   } = useForm<SettingsFormValues>({ resolver: zodResolver(settingsSchema), defaultValues: settings });
 
   const onSubmit = async (values: SettingsFormValues) => {
-    const payload = { ...values, heroImageUrl, heroImageUrl2, heroImageUrl3, heroImageUrl4 };
+    const payload = { ...values, logoUrl, heroImageUrl, heroImageUrl2, heroImageUrl3, heroImageUrl4 };
     const res = await fetch("/api/admin/settings", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -52,6 +53,14 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
             <Label htmlFor="description">Firm Description</Label>
             <Textarea id="description" rows={3} {...register("description")} />
           </div>
+        </div>
+
+        <h3 className="mt-8 text-sm font-semibold uppercase tracking-widest text-slate">Logo</h3>
+        <p className="mt-1 text-sm text-slate">
+          Shown in the site header and used as the browser tab icon. Square images work best.
+        </p>
+        <div className="mt-4 max-w-[220px]">
+          <ImageUploader value={logoUrl} onChange={setLogoUrl} folder="general" label="Logo" />
         </div>
       </section>
 

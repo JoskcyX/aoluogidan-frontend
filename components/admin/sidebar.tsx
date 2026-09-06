@@ -31,6 +31,7 @@ const NAV = [
   { href: "/admin/enquiries", label: "Enquiries", icon: Inbox },
   { href: "/admin/media", label: "Media", icon: ImageIcon },
   { href: "/admin/pages", label: "Pages", icon: FileText },
+  { href: "/admin/page-heroes", label: "Page Hero Images", icon: ImageIcon },
   { href: "/admin/settings", label: "Settings", icon: Settings },
   { href: "/admin/users", label: "Admin Users", icon: ShieldCheck, superAdminOnly: true },
 ];
