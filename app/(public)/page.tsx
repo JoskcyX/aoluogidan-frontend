@@ -163,11 +163,11 @@ export default async function HomePage() {
               </Link>
             </Reveal>
 
-            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid gap-6 sm:grid-cols-3 lg:grid-cols-5 lg:justify-items-center">
               {lawyersToShow.map((lawyer: any, i: number) => (
-                <Reveal key={lawyer.id} delay={i * 80}>
+                <Reveal key={lawyer.id} delay={i * 80} className="w-full max-w-[170px]">
                   <Link href={`/team/${lawyer.slug}`} className="group block">
-                    <div className="aspect-[4/5] overflow-hidden bg-line">
+                    <div className="aspect-square overflow-hidden rounded-2xl bg-line shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
                       {lawyer.photoUrl ? (
                         <Image
                           src={lawyer.photoUrl}
@@ -177,11 +177,11 @@ export default async function HomePage() {
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       ) : (
-                        <div className="flex h-full items-center justify-center text-slate">No photo</div>
+                        <div className="flex h-full items-center justify-center text-xs text-slate">No photo</div>
                       )}
                     </div>
-                    <h3 className="mt-4 font-display text-lg text-ink transition-colors group-hover:text-brass-deep">{lawyer.name}</h3>
-                    <p className="text-sm text-brass-deep">{lawyer.position}</p>
+                    <h3 className="mt-3 font-display text-base text-ink transition-colors group-hover:text-brass-deep">{lawyer.name}</h3>
+                    <p className="text-xs text-brass-deep">{lawyer.position}</p>
                   </Link>
                 </Reveal>
               ))}
@@ -204,41 +204,41 @@ export default async function HomePage() {
             <div className="mt-12 grid gap-10 lg:grid-cols-3">
               {latestPosts.map((post: any, i: number) => (
                 <Reveal key={post.id} delay={i * 80}>
-                  <Link href={`/insights/${post.slug}`} className="group block transition-transform duration-300 hover:-translate-y-1">
-                    <div className="aspect-[16/10] overflow-hidden bg-surface">
-                      {post.featuredImageUrl ? (
-                        <Image
-                          src={post.featuredImageUrl}
-                          alt={post.title}
-                          width={600}
-                          height={375}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-slate">A. Oluogidan & Co</div>
-                      )}
-                    </div>
-                    <div className="mt-5">
-                      {post.categoryName && (
-                        <p className="text-xs font-semibold uppercase tracking-widest text-brass-deep">
-                          {post.categoryName}
-                        </p>
-                      )}
-                      <h3 className="mt-2 font-display text-xl text-ink group-hover:text-brass-deep">
-                        {post.title}
-                      </h3>
-                      {post.excerpt && <p className="mt-2 text-sm leading-relaxed text-slate">{post.excerpt}</p>}
-                      <p className="mt-4 text-xs text-slate">
-                        {post.authorName} ·{" "}
-                        {post.publishedAt &&
-                          new Date(post.publishedAt).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
+                <Link href={`/insights/${post.slug}`} className="group block transition-transform duration-300 hover:-translate-y-1">
+                  <div className="aspect-[16/10] overflow-hidden bg-surface">
+                    {post.featuredImageUrl ? (
+                      <Image
+                        src={post.featuredImageUrl}
+                        alt={post.title}
+                        width={600}
+                        height={375}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-slate">A. Oluogidan & Co</div>
+                    )}
+                  </div>
+                  <div className="mt-5">
+                    {post.categoryName && (
+                      <p className="text-xs font-semibold uppercase tracking-widest text-brass-deep">
+                        {post.categoryName}
                       </p>
-                    </div>
-                  </Link>
+                    )}
+                    <h3 className="mt-2 font-display text-xl text-ink group-hover:text-brass-deep">
+                      {post.title}
+                    </h3>
+                    {post.excerpt && <p className="mt-2 text-sm leading-relaxed text-slate">{post.excerpt}</p>}
+                    <p className="mt-4 text-xs text-slate">
+                      {post.authorName} ·{" "}
+                      {post.publishedAt &&
+                        new Date(post.publishedAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                    </p>
+                  </div>
+                </Link>
                 </Reveal>
               ))}
             </div>
