@@ -38,42 +38,67 @@ export function TestimonialsTable({ initialRows }: { initialRows: Testimonial[] 
   };
 
   return (
-    <div className="overflow-x-auto border border-line bg-white">
-      <table className="w-full text-left text-sm">
-        <thead className="border-b border-line bg-surface text-xs uppercase tracking-wide text-slate">
-          <tr>
-            <th className="px-5 py-3">Client</th>
-            <th className="px-5 py-3">Testimonial</th>
-            <th className="px-5 py-3">Published</th>
-            <th className="px-5 py-3">Featured</th>
-            <th className="px-5 py-3 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-line">
-          {rows.map((row) => (
-            <tr key={row.id}>
-              <td className="px-5 py-3 font-medium text-ink">{row.clientName}</td>
-              <td className="max-w-sm truncate px-5 py-3 text-slate">{row.testimonial}</td>
-              <td className="px-5 py-3">
-                <button onClick={() => patch(row, "published")}>
-                  <Badge variant={row.published ? "success" : "neutral"}>{row.published ? "Yes" : "No"}</Badge>
-                </button>
-              </td>
-              <td className="px-5 py-3">
-                <button onClick={() => patch(row, "featured")}>
-                  <Badge variant={row.featured ? "default" : "neutral"}>{row.featured ? "Yes" : "No"}</Badge>
-                </button>
-              </td>
-              <td className="px-5 py-3">
-                <div className="flex justify-end gap-4">
-                  <Link href={`/admin/testimonials/${row.id}`} className="text-sm text-brass-deep hover:underline">Edit</Link>
-                  <ConfirmButton label="Delete" confirmTitle="Delete this testimonial?" confirmDescription="This can't be undone." onConfirm={() => handleDelete(row)} />
-                </div>
-              </td>
+    <>
+      {/* Mobile: stacked cards */}
+      <div className="grid gap-3 md:hidden">
+        {rows.map((row) => (
+          <div key={row.id} className="border border-line bg-white p-4">
+            <p className="font-medium text-ink">{row.clientName}</p>
+            <p className="mt-1 line-clamp-2 text-sm text-slate">{row.testimonial}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <button onClick={() => patch(row, "published")}>
+                <Badge variant={row.published ? "success" : "neutral"}>{row.published ? "Published" : "Unpublished"}</Badge>
+              </button>
+              <button onClick={() => patch(row, "featured")}>
+                <Badge variant={row.featured ? "default" : "neutral"}>{row.featured ? "Featured" : "Not Featured"}</Badge>
+              </button>
+            </div>
+            <div className="mt-3 flex justify-end gap-4 border-t border-line pt-3">
+              <Link href={`/admin/testimonials/${row.id}`} className="text-sm text-brass-deep hover:underline">Edit</Link>
+              <ConfirmButton label="Delete" confirmTitle="Delete this testimonial?" confirmDescription="This can't be undone." onConfirm={() => handleDelete(row)} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="hidden overflow-x-auto border border-line bg-white md:block">
+        <table className="w-full text-left text-sm">
+          <thead className="border-b border-line bg-surface text-xs uppercase tracking-wide text-slate">
+            <tr>
+              <th className="px-5 py-3">Client</th>
+              <th className="px-5 py-3">Testimonial</th>
+              <th className="px-5 py-3">Published</th>
+              <th className="px-5 py-3">Featured</th>
+              <th className="px-5 py-3 text-right">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody className="divide-y divide-line">
+            {rows.map((row) => (
+              <tr key={row.id}>
+                <td className="px-5 py-3 font-medium text-ink">{row.clientName}</td>
+                <td className="max-w-sm truncate px-5 py-3 text-slate">{row.testimonial}</td>
+                <td className="px-5 py-3">
+                  <button onClick={() => patch(row, "published")}>
+                    <Badge variant={row.published ? "success" : "neutral"}>{row.published ? "Yes" : "No"}</Badge>
+                  </button>
+                </td>
+                <td className="px-5 py-3">
+                  <button onClick={() => patch(row, "featured")}>
+                    <Badge variant={row.featured ? "default" : "neutral"}>{row.featured ? "Yes" : "No"}</Badge>
+                  </button>
+                </td>
+                <td className="px-5 py-3">
+                  <div className="flex justify-end gap-4">
+                    <Link href={`/admin/testimonials/${row.id}`} className="text-sm text-brass-deep hover:underline">Edit</Link>
+                    <ConfirmButton label="Delete" confirmTitle="Delete this testimonial?" confirmDescription="This can't be undone." onConfirm={() => handleDelete(row)} />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }

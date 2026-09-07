@@ -44,7 +44,7 @@ export default async function AboutPage() {
         </div>
 
         <Reveal delay={120}>
-          <aside className="border border-line p-8 transition-shadow duration-300 hover:shadow-lg">
+          <aside className="rounded-2xl border border-line p-8 transition-shadow duration-300 hover:shadow-lg">
             <h3 className="font-display text-xl text-ink">Core Values</h3>
             <ul className="mt-5 space-y-5">
               {values.map((v: any) => (

@@ -24,37 +24,63 @@ export default async function AdminEnquiriesPage() {
         {rows.length === 0 ? (
           <EmptyState title="No enquiries yet." description="Submissions from the Contact and Consultation forms will appear here." />
         ) : (
-          <div className="overflow-x-auto border border-line bg-white">
-            <table className="w-full text-left text-sm">
-              <thead className="border-b border-line bg-surface text-xs uppercase tracking-wide text-slate">
-                <tr>
-                  <th className="px-5 py-3">Name</th>
-                  <th className="px-5 py-3">Type</th>
-                  <th className="px-5 py-3">Area of Law</th>
-                  <th className="px-5 py-3">Date</th>
-                  <th className="px-5 py-3">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-line">
-                {rows.map((e: any) => (
-                  <tr key={e.id}>
-                    <td className="px-5 py-3">
-                      <Link href={`/admin/enquiries/${e.id}`} className="font-medium text-ink hover:text-brass-deep">
-                        {e.fullName}
-                      </Link>
-                      <p className="text-xs text-slate">{e.email}</p>
-                    </td>
-                    <td className="px-5 py-3 text-slate">{e.type === "CONSULTATION" ? "Consultation" : "Contact"}</td>
-                    <td className="px-5 py-3 text-slate">{e.areaOfLaw ?? "\u2014"}</td>
-                    <td className="px-5 py-3 text-slate">{new Date(e.createdAt).toLocaleDateString()}</td>
-                    <td className="px-5 py-3">
-                      <Badge variant={STATUS_VARIANT[e.status]}>{e.status.replace("_", " ")}</Badge>
-                    </td>
+          <>
+            {/* Mobile: stacked cards */}
+            <div className="grid gap-3 md:hidden">
+              {rows.map((e: any) => (
+                <Link
+                  key={e.id}
+                  href={`/admin/enquiries/${e.id}`}
+                  className="block border border-line bg-white p-4 hover:border-brass"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate font-medium text-ink">{e.fullName}</p>
+                      <p className="truncate text-xs text-slate">{e.email}</p>
+                    </div>
+                    <Badge variant={STATUS_VARIANT[e.status]}>{e.status.replace("_", " ")}</Badge>
+                  </div>
+                  <p className="mt-2 text-sm text-slate">
+                    {e.type === "CONSULTATION" ? "Consultation" : "Contact"}
+                    {e.areaOfLaw ? ` · ${e.areaOfLaw}` : ""} · {new Date(e.createdAt).toLocaleDateString()}
+                  </p>
+                </Link>
+              ))}
+            </div>
+
+            {/* Desktop: table */}
+            <div className="hidden overflow-x-auto border border-line bg-white md:block">
+              <table className="w-full text-left text-sm">
+                <thead className="border-b border-line bg-surface text-xs uppercase tracking-wide text-slate">
+                  <tr>
+                    <th className="px-5 py-3">Name</th>
+                    <th className="px-5 py-3">Type</th>
+                    <th className="px-5 py-3">Area of Law</th>
+                    <th className="px-5 py-3">Date</th>
+                    <th className="px-5 py-3">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-line">
+                  {rows.map((e: any) => (
+                    <tr key={e.id}>
+                      <td className="px-5 py-3">
+                        <Link href={`/admin/enquiries/${e.id}`} className="font-medium text-ink hover:text-brass-deep">
+                          {e.fullName}
+                        </Link>
+                        <p className="text-xs text-slate">{e.email}</p>
+                      </td>
+                      <td className="px-5 py-3 text-slate">{e.type === "CONSULTATION" ? "Consultation" : "Contact"}</td>
+                      <td className="px-5 py-3 text-slate">{e.areaOfLaw ?? "\u2014"}</td>
+                      <td className="px-5 py-3 text-slate">{new Date(e.createdAt).toLocaleDateString()}</td>
+                      <td className="px-5 py-3">
+                        <Badge variant={STATUS_VARIANT[e.status]}>{e.status.replace("_", " ")}</Badge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     </Container>

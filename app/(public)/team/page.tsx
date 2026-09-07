@@ -27,15 +27,15 @@ export default async function TeamPage() {
       <Container className="py-20">
         <div className="flex flex-wrap justify-center gap-6">
           {team.map((lawyer: any, i: number) => (
-            <Reveal key={lawyer.id} delay={i * 60} className="w-32 sm:w-36">
+            <Reveal key={lawyer.id} delay={i * 60} className="w-36 sm:w-40">
               <Link href={`/team/${lawyer.slug}`} className="group block">
                 <div className="aspect-square overflow-hidden rounded-2xl bg-surface shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
                   {lawyer.photoUrl ? (
                     <Image
                       src={lawyer.photoUrl}
                       alt={lawyer.name}
-                      width={144}
-                      height={144}
+                      width={160}
+                      height={160}
                       unoptimized
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

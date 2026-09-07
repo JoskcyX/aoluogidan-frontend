@@ -38,7 +38,7 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center gap-3 border border-line bg-surface p-12 text-center">
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-line bg-surface p-12 text-center">
         <CheckCircle2 className="text-brass" size={40} />
         <p className="font-display text-xl text-ink">Thank you for reaching out.</p>
         <p className="max-w-sm text-sm text-slate">

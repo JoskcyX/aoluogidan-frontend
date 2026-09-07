@@ -165,15 +165,15 @@ export default async function HomePage() {
 
             <div className="mt-12 flex flex-wrap justify-center gap-6">
               {lawyersToShow.map((lawyer: any, i: number) => (
-                <Reveal key={lawyer.id} delay={i * 80} className="w-32 sm:w-36">
+                <Reveal key={lawyer.id} delay={i * 80} className="w-36 sm:w-40">
                   <Link href={`/team/${lawyer.slug}`} className="group block">
                     <div className="aspect-square overflow-hidden rounded-2xl bg-line shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
                       {lawyer.photoUrl ? (
                         <Image
                           src={lawyer.photoUrl}
                           alt={lawyer.name}
-                          width={144}
-                          height={144}
+                          width={160}
+                          height={160}
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       ) : (
@@ -256,7 +256,7 @@ export default async function HomePage() {
             <div className="mt-12 grid gap-8 lg:grid-cols-3">
               {testimonialsToShow.map((t: any, i: number) => (
                 <Reveal key={t.id} delay={i * 100}>
-                  <div className="h-full border border-white/10 p-8 transition-colors duration-300 hover:border-brass/50">
+                  <div className="h-full rounded-2xl border border-white/10 p-8 transition-colors duration-300 hover:border-brass/50">
                     <Quote className="text-brass" size={24} />
                     <p className="mt-4 text-sm leading-relaxed text-white/80">&ldquo;{t.testimonial}&rdquo;</p>
                     <p className="mt-6 text-sm font-medium text-white">{t.clientName}</p>
@@ -272,7 +272,7 @@ export default async function HomePage() {
       {/* Consultation CTA */}
       <section className="py-24">
         <Container>
-          <Reveal className="flex flex-col items-center gap-6 border border-line bg-surface px-8 py-16 text-center">
+          <Reveal className="flex flex-col items-center gap-6 rounded-2xl border border-line bg-surface px-8 py-16 text-center">
             <h2 className="font-display text-3xl text-ink sm:text-4xl">Need Legal Advice?</h2>
             <p className="max-w-md text-slate">Speak with our legal team about your situation.</p>
             <Link href="/consultation">

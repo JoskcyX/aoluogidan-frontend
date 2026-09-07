@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { api } from "@/lib/api";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = process.env.SITE_URL ?? "http://localhost:3000";
+  const base = process.env.SITE_URL ?? "https://aolouogidan.com";
 
   const staticRoutes = [
     "",

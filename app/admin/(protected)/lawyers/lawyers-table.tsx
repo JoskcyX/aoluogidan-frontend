@@ -43,53 +43,91 @@ export function LawyersTable({ initialLawyers }: { initialLawyers: Lawyer[] }) {
   };
 
   return (
-    <div className="overflow-x-auto border border-line bg-white">
-      <table className="w-full text-left text-sm">
-        <thead className="border-b border-line bg-surface text-xs uppercase tracking-wide text-slate">
-          <tr>
-            <th className="px-5 py-3">Photo</th>
-            <th className="px-5 py-3">Name</th>
-            <th className="px-5 py-3">Position</th>
-            <th className="px-5 py-3">Status</th>
-            <th className="px-5 py-3 text-right">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-line">
-          {rows.map((lawyer) => (
-            <tr key={lawyer.id}>
-              <td className="px-5 py-3">
-                <div className="h-10 w-10 overflow-hidden rounded-sm bg-surface">
-                  {lawyer.photoUrl && (
-                    <Image src={lawyer.photoUrl} alt="" width={40} height={40} className="h-full w-full object-cover" />
-                  )}
-                </div>
-              </td>
-              <td className="px-5 py-3 font-medium text-ink">{lawyer.name}</td>
-              <td className="px-5 py-3 text-slate">{lawyer.position}</td>
-              <td className="px-5 py-3">
-                <button onClick={() => togglePublished(lawyer)}>
-                  <Badge variant={lawyer.published ? "success" : "neutral"}>
-                    {lawyer.published ? "Published" : "Draft"}
-                  </Badge>
-                </button>
-              </td>
-              <td className="px-5 py-3">
-                <div className="flex justify-end gap-4">
-                  <Link href={`/admin/lawyers/${lawyer.id}`} className="text-sm text-brass-deep hover:underline">
-                    Edit
-                  </Link>
-                  <ConfirmButton
-                    label="Delete"
-                    confirmTitle="Delete this lawyer profile?"
-                    confirmDescription={`"${lawyer.name}" will be permanently removed from the website. This can't be undone.`}
-                    onConfirm={() => handleDelete(lawyer)}
-                  />
-                </div>
-              </td>
+    <>
+      {/* Mobile: stacked cards */}
+      <div className="grid gap-3 md:hidden">
+        {rows.map((lawyer) => (
+          <div key={lawyer.id} className="border border-line bg-white p-4">
+            <div className="flex items-center gap-3">
+              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-sm bg-surface">
+                {lawyer.photoUrl && (
+                  <Image src={lawyer.photoUrl} alt="" width={48} height={48} className="h-full w-full object-cover" />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate font-medium text-ink">{lawyer.name}</p>
+                <p className="truncate text-sm text-slate">{lawyer.position}</p>
+              </div>
+              <button onClick={() => togglePublished(lawyer)} className="shrink-0">
+                <Badge variant={lawyer.published ? "success" : "neutral"}>
+                  {lawyer.published ? "Published" : "Draft"}
+                </Badge>
+              </button>
+            </div>
+            <div className="mt-3 flex justify-end gap-4 border-t border-line pt-3">
+              <Link href={`/admin/lawyers/${lawyer.id}`} className="text-sm text-brass-deep hover:underline">
+                Edit
+              </Link>
+              <ConfirmButton
+                label="Delete"
+                confirmTitle="Delete this lawyer profile?"
+                confirmDescription={`"${lawyer.name}" will be permanently removed from the website. This can't be undone.`}
+                onConfirm={() => handleDelete(lawyer)}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="hidden overflow-x-auto border border-line bg-white md:block">
+        <table className="w-full text-left text-sm">
+          <thead className="border-b border-line bg-surface text-xs uppercase tracking-wide text-slate">
+            <tr>
+              <th className="px-5 py-3">Photo</th>
+              <th className="px-5 py-3">Name</th>
+              <th className="px-5 py-3">Position</th>
+              <th className="px-5 py-3">Status</th>
+              <th className="px-5 py-3 text-right">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody className="divide-y divide-line">
+            {rows.map((lawyer) => (
+              <tr key={lawyer.id}>
+                <td className="px-5 py-3">
+                  <div className="h-10 w-10 overflow-hidden rounded-sm bg-surface">
+                    {lawyer.photoUrl && (
+                      <Image src={lawyer.photoUrl} alt="" width={40} height={40} className="h-full w-full object-cover" />
+                    )}
+                  </div>
+                </td>
+                <td className="px-5 py-3 font-medium text-ink">{lawyer.name}</td>
+                <td className="px-5 py-3 text-slate">{lawyer.position}</td>
+                <td className="px-5 py-3">
+                  <button onClick={() => togglePublished(lawyer)}>
+                    <Badge variant={lawyer.published ? "success" : "neutral"}>
+                      {lawyer.published ? "Published" : "Draft"}
+                    </Badge>
+                  </button>
+                </td>
+                <td className="px-5 py-3">
+                  <div className="flex justify-end gap-4">
+                    <Link href={`/admin/lawyers/${lawyer.id}`} className="text-sm text-brass-deep hover:underline">
+                      Edit
+                    </Link>
+                    <ConfirmButton
+                      label="Delete"
+                      confirmTitle="Delete this lawyer profile?"
+                      confirmDescription={`"${lawyer.name}" will be permanently removed from the website. This can't be undone.`}
+                      onConfirm={() => handleDelete(lawyer)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }

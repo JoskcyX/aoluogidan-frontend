@@ -43,7 +43,7 @@ export default async function PracticeAreaDetailPage({ params }: { params: { slu
               <h2 className="font-display text-2xl text-ink">Our Services</h2>
               <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                 {services.map((s: any) => (
-                  <li key={s.id} className="border border-line px-5 py-4 text-sm text-ink">
+                  <li key={s.id} className="rounded-xl border border-line px-5 py-4 text-sm text-ink">
                     {s.name}
                   </li>
                 ))}
@@ -68,7 +68,7 @@ export default async function PracticeAreaDetailPage({ params }: { params: { slu
 
         <aside className="space-y-8">
           {relatedLawyers.length > 0 && (
-            <div className="border border-line p-6">
+            <div className="rounded-2xl border border-line p-6">
               <h3 className="font-display text-lg text-ink">Related Lawyers</h3>
               <ul className="mt-4 space-y-4">
                 {relatedLawyers.map((l: any) => (
@@ -83,7 +83,7 @@ export default async function PracticeAreaDetailPage({ params }: { params: { slu
             </div>
           )}
 
-          <div className="border border-line bg-surface p-6 text-center">
+          <div className="rounded-2xl border border-line bg-surface p-6 text-center">
             <p className="font-display text-lg text-ink">Speak With Our {area.name.split(" ")[0]} Team</p>
             <Link href="/consultation" className="mt-4 block">
               <Button className="w-full">Request a Consultation</Button>

@@ -50,7 +50,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           </div>
         )}
 
-        <div className="mt-14 border border-line bg-surface p-8 text-center">
+        <div className="mt-14 rounded-2xl border border-line bg-surface p-8 text-center">
           <p className="font-display text-xl text-ink">Have a legal question about this topic?</p>
           <Link href="/consultation" className="mt-4 inline-block">
             <Button>Request a Consultation</Button>
