@@ -71,7 +71,8 @@ export const settingsSchema = z.object({
   socialInstagram: z.string().trim().optional().nullable(),
   socialX: z.string().trim().optional().nullable(),
   socialYoutube: z.string().trim().optional().nullable(),
-  heroHeading: z.string().trim().min(4).max(300),
+  // Multiple headings can be entered one-per-line to rotate across the hero image.
+  heroHeading: z.string().trim().min(4).max(2000),
   heroSubheading: z.string().trim().optional().nullable(),
   heroImageUrl: z.string().trim().optional().nullable(),
   heroImageUrl2: z.string().trim().optional().nullable(),

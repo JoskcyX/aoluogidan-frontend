@@ -116,8 +116,8 @@ export function LawyerForm({
             <Textarea id="memberships" rows={2} {...register("memberships")} />
           </div>
           <div>
-            <Label htmlFor="awards">Awards</Label>
-            <Textarea id="awards" rows={2} {...register("awards")} />
+            <Label htmlFor="awards">Areas of Practice</Label>
+            <Textarea id="awards" rows={2} {...register("awards")} placeholder="e.g. Corporate Law, Litigation, Real Estate" />
           </div>
         </div>
       </section>

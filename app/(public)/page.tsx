@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HeroSlideshow } from "@/components/layout/hero-slideshow";
+import { HeroTextRotator } from "@/components/layout/hero-text-rotator";
+import { parseHeroLines } from "@/lib/hero-text";
 import { ArrowRight, Quote } from "lucide-react";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
@@ -24,6 +26,9 @@ export default async function HomePage() {
     api.getBlogPosts({ limit: 3 }).catch(() => ({ posts: [] })),
     api.getTestimonials({ featured: true }).catch(() => ({ testimonials: [] })),
   ]);
+
+  const heroHeadings = parseHeroLines(settings.heroHeading);
+  const heroSubheadings = parseHeroLines(settings.heroSubheading);
 
   const areasToShow = areas.slice(0, 6);
   const lawyersToShow = featuredLawyers.slice(0, 4);
@@ -70,26 +75,16 @@ export default async function HomePage() {
             >
               {settings.tagline}
             </p>
-            <h1
-              className="animate-fade-up font-display text-4xl leading-[1.1] sm:text-5xl lg:text-6xl"
-              style={{ animationDelay: "200ms" }}
-            >
-              {settings.heroHeading}
-            </h1>
-            {settings.heroSubheading && (
-              <p
-                className="mt-6 max-w-xl animate-fade-up text-base leading-relaxed text-white/70"
-                style={{ animationDelay: "320ms" }}
-              >
-                {settings.heroSubheading}
-              </p>
-            )}
+            <HeroTextRotator
+              headings={heroHeadings.length ? heroHeadings : [settings.heroHeading]}
+              subheadings={heroSubheadings}
+            />
             <div
               className="mt-10 flex animate-fade-up flex-wrap gap-4"
               style={{ animationDelay: "440ms" }}
             >
               <Link href={settings.heroCtaLink}>
-                <Button size="lg" className="transition-transform duration-200 hover:scale-105">
+                <Button size="lg" className="rounded-full transition-transform duration-200 hover:scale-105">
                   {settings.heroCtaText}
                 </Button>
               </Link>
@@ -97,7 +92,7 @@ export default async function HomePage() {
                 <Button
                   size="lg"
                   variant="secondary"
-                  className="border-white text-white transition-transform duration-200 hover:scale-105 hover:bg-white hover:text-ink"
+                  className="rounded-full border-white text-white transition-transform duration-200 hover:scale-105 hover:bg-white hover:text-ink"
                 >
                   {settings.heroSecondaryCtaText}
                 </Button>

@@ -106,12 +106,19 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
         <h2 className="font-display text-lg text-ink">Homepage</h2>
         <div className="mt-5 grid gap-5">
           <div>
-            <Label htmlFor="heroHeading" required>Hero Heading</Label>
-            <Input id="heroHeading" {...register("heroHeading")} />
+            <Label htmlFor="heroHeading" required>Hero Heading(s)</Label>
+            <Textarea id="heroHeading" rows={3} {...register("heroHeading")} />
+            <p className="mt-1 text-xs text-slate">
+              Enter one heading per line to rotate multiple headlines across the hero image, each with a
+              smooth fade transition. A single line stays static.
+            </p>
           </div>
           <div>
-            <Label htmlFor="heroSubheading">Hero Description</Label>
-            <Textarea id="heroSubheading" rows={2} {...register("heroSubheading")} />
+            <Label htmlFor="heroSubheading">Hero Description(s)</Label>
+            <Textarea id="heroSubheading" rows={3} {...register("heroSubheading")} />
+            <p className="mt-1 text-xs text-slate">
+              Optional — enter one line per heading above to pair a matching subheading with each rotation.
+            </p>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
             <div><Label htmlFor="heroCtaText">Primary Button Text</Label><Input id="heroCtaText" {...register("heroCtaText")} /></div>

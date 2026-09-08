@@ -81,10 +81,19 @@ export function AdminSidebar({ role, userName }: { role: "SUPER_ADMIN" | "EDITOR
         </button>
       </div>
 
+      {/* Backdrop for the mobile drawer */}
+      {open && (
+        <div
+          className="fixed inset-0 z-20 bg-black/50 lg:hidden"
+          onClick={() => setOpen(false)}
+          aria-hidden
+        />
+      )}
+
       <aside
         className={clsx(
-          "z-30 flex w-72 flex-col bg-ink lg:sticky lg:top-0 lg:h-screen",
-          open ? "fixed inset-0" : "hidden lg:flex"
+          "z-30 flex w-72 flex-col overflow-y-auto bg-ink lg:sticky lg:top-0 lg:h-screen",
+          open ? "fixed inset-y-0 left-0" : "hidden lg:flex"
         )}
       >
         <div className="hidden border-b border-white/10 px-6 py-6 lg:block">
