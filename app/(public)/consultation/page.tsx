@@ -4,7 +4,10 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 import { ConsultationForm } from "./consultation-form";
 
-export const metadata = { title: "Request a Consultation" };
+export const metadata = {
+  title: "Request a Consultation",
+  description: "Book a consultation with one of our lawyers to discuss your legal matter.",
+};
 
 export default async function ConsultationPage() {
   const [{ settings }, { pageHeroes }] = await Promise.all([

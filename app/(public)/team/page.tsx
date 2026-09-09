@@ -5,7 +5,10 @@ import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 
-export const metadata = { title: "Our Team" };
+export const metadata = {
+  title: "Our Team",
+  description: "Meet the lawyers and legal professionals behind our firm's work.",
+};
 
 export default async function TeamPage() {
   const [{ lawyers: team }, { settings }, { pageHeroes }] = await Promise.all([
@@ -25,7 +28,7 @@ export default async function TeamPage() {
 
       {/* Team Section */}
       <Container className="py-20">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
           {team.map((lawyer: any, i: number) => (
             <Reveal key={lawyer.id} delay={i * 60}>
               <Link href={`/team/${lawyer.slug}`} className="group block">

@@ -4,7 +4,10 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 import { ChevronDown } from "lucide-react";
 
-export const metadata = { title: "Frequently Asked Questions" };
+export const metadata = {
+  title: "Frequently Asked Questions",
+  description: "Answers to common questions about working with our firm, our practice areas, and what to expect from a consultation.",
+};
 
 export default async function FaqPage() {
   const [{ faqs: allFaqs = [] }, { settings }, { pageHeroes }] = await Promise.all([
@@ -19,8 +22,27 @@ export default async function FaqPage() {
     return acc;
   }, {});
 
+  // FAQPage structured data so Google can show these as expandable rich
+  // results directly in search, instead of a plain blue link.
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: (allFaqs as any[]).map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+
   return (
     <>
+      {allFaqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <PageHero
         eyebrow="FAQ"
         title="Frequently Asked Questions"

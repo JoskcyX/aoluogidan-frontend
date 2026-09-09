@@ -158,7 +158,7 @@ export default async function HomePage() {
               </Link>
             </Reveal>
 
-            <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
+            <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
               {lawyersToShow.map((lawyer: any, i: number) => (
                 <Reveal key={lawyer.id} delay={i * 80}>
                   <Link href={`/team/${lawyer.slug}`} className="group block">

@@ -2,7 +2,10 @@ import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
 
-export const metadata = { title: "Privacy Policy" };
+export const metadata = {
+  title: "Privacy Policy",
+  description: "How we collect, use, and protect your personal information.",
+};
 
 export default async function LegalPage() {
   const { page } = await api.getPageBySlug("privacy-policy").catch(() => ({ page: null }));

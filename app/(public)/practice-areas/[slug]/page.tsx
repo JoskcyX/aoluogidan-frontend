@@ -9,9 +9,15 @@ import type { Metadata } from "next";
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { area } = await api.getPracticeArea(params.slug).catch(() => ({ area: null }));
   if (!area) return {};
+  const description = area.seoDescription ?? area.shortDescription;
   return {
     title: area.seoTitle ?? area.name,
-    description: area.seoDescription ?? area.shortDescription,
+    description,
+    openGraph: {
+      title: area.seoTitle ?? area.name,
+      description,
+      images: area.imageUrl ? [{ url: area.imageUrl }] : undefined,
+    },
   };
 }
 

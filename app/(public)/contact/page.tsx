@@ -4,7 +4,10 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 import { ContactForm } from "./contact-form";
 
-export const metadata = { title: "Contact Us" };
+export const metadata = {
+  title: "Contact Us",
+  description: "Get in touch with our team to discuss your legal needs or schedule a consultation.",
+};
 
 export default async function ContactPage() {
   const [{ settings }, { pageHeroes }] = await Promise.all([
