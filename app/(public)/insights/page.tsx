@@ -66,15 +66,7 @@ export default async function InsightsPage({
                 <Link href={`/insights/${post.slug}`} className="group block transition-transform duration-300 hover:-translate-y-1">
                   <div className="aspect-[16/10] overflow-hidden bg-surface">
                     {post.featuredImageUrl ? (
-                      <Image
-                        src={post.featuredImageUrl}
-                        alt={post.title}
-                        width={800}
-                        height={500}
-                        quality={90}
-                        sizes="(max-width: 1024px) 100vw, 33vw"
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
+                      <Image src={post.featuredImageUrl} alt={post.title} width={600} height={375} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     ) : (
                       <div className="flex h-full items-center justify-center text-slate">No image</div>
                     )}

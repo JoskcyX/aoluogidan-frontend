@@ -36,15 +36,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
         {post.featuredImageUrl && (
           <div className="mt-8 aspect-[16/9] overflow-hidden bg-surface">
-            <Image
-              src={post.featuredImageUrl}
-              alt={post.title}
-              width={1600}
-              height={900}
-              quality={90}
-              sizes="(max-width: 768px) 100vw, 800px"
-              className="h-full w-full object-cover"
-            />
+            <Image src={post.featuredImageUrl} alt={post.title} width={1200} height={675} className="h-full w-full object-cover" />
           </div>
         )}
 

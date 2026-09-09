@@ -37,15 +37,7 @@ export default async function LawyerProfilePage({ params }: { params: { slug: st
       <div>
         <div className="aspect-[4/5] overflow-hidden bg-surface">
           {lawyer.photoUrl ? (
-            <Image
-              src={lawyer.photoUrl}
-              alt={lawyer.name}
-              width={800}
-              height={1000}
-              quality={90}
-              sizes="(max-width: 1024px) 100vw, 33vw"
-              className="h-full w-full object-cover"
-            />
+            <Image src={lawyer.photoUrl} alt={lawyer.name} width={500} height={625} className="h-full w-full object-cover" />
           ) : (
             <div className="flex h-full items-center justify-center text-slate">No photo</div>
           )}
