@@ -29,7 +29,7 @@ export function HeroSlideshow({ photos }: { photos: string[] }) {
               fill
               priority={i === 0}
               quality={90}
-              sizes="100vw"
+              sizes="120vw"
               className="object-cover"
             />
           </div>
