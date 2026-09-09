@@ -25,7 +25,7 @@ export function PageHero({
     return (
       <section className="relative flex min-h-[46vh] items-end overflow-hidden bg-ink text-white sm:min-h-[52vh]">
         <div className="absolute inset-0 animate-kenburns">
-          <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+          <Image src={image} alt="" fill priority quality={90} sizes="100vw" className="object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
         <Container className="relative py-14 sm:py-16">
