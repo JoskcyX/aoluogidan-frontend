@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 
-export const metadata = { title: "About Us" };
+export const metadata = {
+  title: "About Us",
+  description: "Learn about our firm's history, values, and the experienced legal team behind our work.",
+};
 
 export default async function AboutPage() {
   const [{ about, values = [] }, { settings }, { pageHeroes }] = await Promise.all([

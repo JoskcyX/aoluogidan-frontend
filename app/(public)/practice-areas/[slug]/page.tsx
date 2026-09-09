@@ -3,41 +3,52 @@ import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { area } = await api.getPracticeArea(params.slug).catch(() => ({ area: null }));
   if (!area) return {};
+  const description = area.seoDescription ?? area.shortDescription;
   return {
     title: area.seoTitle ?? area.name,
-    description: area.seoDescription ?? area.shortDescription,
+    description,
+    openGraph: {
+      title: area.seoTitle ?? area.name,
+      description,
+      images: area.imageUrl ? [{ url: area.imageUrl }] : undefined,
+    },
   };
 }
 
 export default async function PracticeAreaDetailPage({ params }: { params: { slug: string } }) {
-  const {
-    area,
-    services = [],
-    relatedLawyers = [],
-    relatedFaqs = [],
-  } = await api
-    .getPracticeArea(params.slug)
-    .catch(() => ({ area: null, services: [], relatedLawyers: [], relatedFaqs: [] }));
+  const [
+    { area, services = [], relatedLawyers = [], relatedFaqs = [] },
+    { settings },
+  ] = await Promise.all([
+    api
+      .getPracticeArea(params.slug)
+      .catch(() => ({ area: null, services: [], relatedLawyers: [], relatedFaqs: [] })),
+    api.getSiteSettings().catch(() => ({ settings: null })),
+  ]);
 
   if (!area) notFound();
 
   return (
     <>
-      <section className="border-b border-line bg-surface py-20">
-        <Container>
-          <p className="text-xs font-semibold uppercase tracking-widest text-brass-deep">Practice Area</p>
-          <h1 className="mt-3 font-display text-4xl text-ink">{area.name}</h1>
-          {area.fullDescription && <p className="mt-5 max-w-2xl leading-relaxed text-slate">{area.fullDescription}</p>}
-        </Container>
-      </section>
+      <PageHero
+        eyebrow="Practice Area"
+        title={area.name}
+        description={area.shortDescription}
+        image={area.imageUrl ?? settings?.heroImageUrl}
+      />
 
       <Container className="grid gap-16 py-20 lg:grid-cols-3">
         <div className="lg:col-span-2">
+          {area.fullDescription && (
+            <p className="mb-10 max-w-2xl leading-relaxed text-slate">{area.fullDescription}</p>
+          )}
+
           {services.length > 0 && (
             <>
               <h2 className="font-display text-2xl text-ink">Our Services</h2>

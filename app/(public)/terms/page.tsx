@@ -2,7 +2,10 @@ import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
 
-export const metadata = { title: "Terms" };
+export const metadata = {
+  title: "Terms",
+  description: "The terms and conditions governing use of our website and services.",
+};
 
 export default async function LegalPage() {
   const { page } = await api.getPageBySlug("terms").catch(() => ({ page: null }));
