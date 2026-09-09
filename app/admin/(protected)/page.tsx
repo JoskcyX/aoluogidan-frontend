@@ -3,7 +3,7 @@ import { adminFetchJson } from "@/lib/api";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Users, Scale, Newspaper, Inbox, Quote, FilePlus, UserPlus, MessageSquarePlus } from "lucide-react";
+import { Users, Scale, Newspaper, Inbox, Quote, GraduationCap, FilePlus, UserPlus, MessageSquarePlus } from "lucide-react";
 
 export default async function AdminDashboardPage() {
   const {
@@ -13,7 +13,10 @@ export default async function AdminDashboardPage() {
     draftCount,
     unreadCount,
     testimonialCount,
+    internshipCount = 0,
+    newInternshipCount = 0,
     recentEnquiries = [],
+    recentInternshipApplications = [],
     recentActivity = [],
   } = await adminFetchJson("/api/admin/dashboard");
 
@@ -24,6 +27,8 @@ export default async function AdminDashboardPage() {
     { label: "Draft Articles", value: draftCount, icon: Newspaper, href: "/admin/blog" },
     { label: "Unread Enquiries", value: unreadCount, icon: Inbox, href: "/admin/enquiries" },
     { label: "Published Testimonials", value: testimonialCount, icon: Quote, href: "/admin/testimonials" },
+    { label: "Internship Applicants", value: internshipCount, icon: GraduationCap, href: "/admin/internships" },
+    { label: "New Internship Applicants", value: newInternshipCount, icon: GraduationCap, href: "/admin/internships" },
   ];
 
   return (
@@ -52,10 +57,11 @@ export default async function AdminDashboardPage() {
           <Link href="/admin/practice-areas/new"><Button size="sm" variant="secondary"><FilePlus size={16} className="mr-1" /> Add Practice Area</Button></Link>
           <Link href="/admin/blog/new"><Button size="sm" variant="secondary"><MessageSquarePlus size={16} className="mr-1" /> Write Article</Button></Link>
           <Link href="/admin/enquiries"><Button size="sm" variant="ghost">View Enquiries</Button></Link>
+          <Link href="/admin/internships"><Button size="sm" variant="ghost">View Internship Applications</Button></Link>
         </div>
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-2">
+      <div className="mt-10 grid gap-8 lg:grid-cols-3">
         <div className="border border-line bg-white p-6">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-display text-lg text-ink">Recent Enquiries</h2>
@@ -72,6 +78,28 @@ export default async function AdminDashboardPage() {
                     <p className="text-xs text-slate">{e.type === "CONSULTATION" ? "Consultation Request" : "Contact Enquiry"}</p>
                   </div>
                   <Badge variant={e.status === "NEW" ? "warning" : "neutral"}>{e.status}</Badge>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="border border-line bg-white p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-display text-lg text-ink">Recent Internship Applications</h2>
+            <Link href="/admin/internships" className="text-xs font-medium text-brass-deep hover:underline">View all</Link>
+          </div>
+          {recentInternshipApplications.length === 0 ? (
+            <p className="text-sm text-slate">No applications yet.</p>
+          ) : (
+            <ul className="divide-y divide-line">
+              {recentInternshipApplications.map((a: any) => (
+                <li key={a.id} className="flex items-center justify-between py-3">
+                  <div>
+                    <p className="text-sm font-medium text-ink">{a.fullName}</p>
+                    <p className="text-xs text-slate">{a.institution ?? "Internship Applicant"}</p>
+                  </div>
+                  <Badge variant={a.status === "NEW" ? "warning" : "neutral"}>{a.status ?? "NEW"}</Badge>
                 </li>
               ))}
             </ul>

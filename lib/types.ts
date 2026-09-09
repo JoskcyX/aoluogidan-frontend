@@ -15,3 +15,4 @@ export type Testimonial = Record<string, any>;
 export type Media = Record<string, any>;
 export type Page = Record<string, any>;
 export type Enquiry = Record<string, any>;
+export type InternshipApplication = Record<string, any>;

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
 import { Linkedin, Mail, Phone } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -67,9 +66,6 @@ export default async function LawyerProfilePage({ params }: { params: { slug: st
             </a>
           )}
         </div>
-        <Link href="/consultation" className="mt-6 block">
-          <Button className="w-full">Request a Consultation</Button>
-        </Link>
       </div>
 
       <div className="lg:col-span-2">
@@ -123,7 +119,7 @@ export default async function LawyerProfilePage({ params }: { params: { slug: st
               <p className="mt-2 text-sm text-slate">{lawyer.languages}</p>
             </div>
           )}
-          {lawyer.experienceYears != null && (
+          {lawyer.experienceYears != null && lawyer.experienceYears > 0 && (
             <div>
               <h3 className="font-display text-lg text-ink">Experience</h3>
               <p className="mt-2 text-sm text-slate">{lawyer.experienceYears} years</p>

@@ -9,7 +9,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 // instead so it revalidates on a timer rather than staying dynamic forever.
 export const dynamic = "force-dynamic";
 
-const SITE_URL = process.env.SITE_URL ?? "https://your-site.netlify.app";
+const SITE_URL = process.env.SITE_URL ?? "https://aoluogidan.com";
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
   const [{ settings }, { practiceAreas: areas }] = await Promise.all([

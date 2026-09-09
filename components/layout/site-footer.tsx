@@ -45,6 +45,7 @@ export function SiteFooter({
             <li><Link href="/insights" className="hover:text-brass">Insights</Link></li>
             <li><Link href="/faq" className="hover:text-brass">FAQ</Link></li>
             <li><Link href="/contact" className="hover:text-brass">Contact</Link></li>
+            <li><Link href="/internship" className="hover:text-brass">Internship Applications</Link></li>
           </ul>
         </div>
 

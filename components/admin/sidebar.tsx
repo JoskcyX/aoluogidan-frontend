@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
+import toast from "react-hot-toast";
 import {
   LayoutDashboard,
   Users,
@@ -12,6 +13,7 @@ import {
   Quote,
   HelpCircle,
   Inbox,
+  GraduationCap,
   Image as ImageIcon,
   FileText,
   Settings,
@@ -29,12 +31,61 @@ const NAV = [
   { href: "/admin/testimonials", label: "Testimonials", icon: Quote },
   { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/admin/enquiries", label: "Enquiries", icon: Inbox },
+  { href: "/admin/internships", label: "Internships", icon: GraduationCap, notificationKey: "internships" as const },
   { href: "/admin/media", label: "Media", icon: ImageIcon },
   { href: "/admin/pages", label: "Pages", icon: FileText },
   { href: "/admin/page-heroes", label: "Page Hero Images", icon: ImageIcon },
   { href: "/admin/settings", label: "Settings", icon: Settings },
   { href: "/admin/users", label: "Admin Users", icon: ShieldCheck, superAdminOnly: true },
 ];
+
+const LAST_SEEN_KEY = "admin:internships:lastSeenCount";
+const POLL_INTERVAL_MS = 30_000;
+
+/** Polls for new internship applicants and surfaces a badge + toast. */
+function useInternshipNotifications() {
+  const [count, setCount] = useState(0);
+  const lastSeen = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (lastSeen.current === null) {
+      const stored = Number(window.localStorage.getItem(LAST_SEEN_KEY));
+      lastSeen.current = Number.isFinite(stored) ? stored : 0;
+    }
+
+    let cancelled = false;
+
+    const poll = async () => {
+      try {
+        const res = await fetch("/api/admin/internships/unread-count", { cache: "no-store" });
+        if (!res.ok) return;
+        const { count: next } = await res.json();
+        if (cancelled || typeof next !== "number") return;
+
+        setCount(next);
+        if (lastSeen.current !== null && next > lastSeen.current) {
+          const newOnes = next - lastSeen.current;
+          toast(`${newOnes} new internship ${newOnes === 1 ? "application" : "applications"} received.`, {
+            icon: "🎓",
+          });
+        }
+        lastSeen.current = next;
+        window.localStorage.setItem(LAST_SEEN_KEY, String(next));
+      } catch {
+        // Ignore — likely just means the internship backend isn't live yet.
+      }
+    };
+
+    poll();
+    const interval = setInterval(poll, POLL_INTERVAL_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
+
+  return count;
+}
 
 export function AdminSidebar({ role, userName }: { role: "SUPER_ADMIN" | "EDITOR"; userName: string }) {
   const pathname = usePathname();
@@ -45,6 +96,7 @@ export function AdminSidebar({ role, userName }: { role: "SUPER_ADMIN" | "EDITOR
     router.refresh();
   };
   const [open, setOpen] = useState(false);
+  const newInternshipCount = useInternshipNotifications();
 
   const items = NAV.filter((item) => !item.superAdminOnly || role === "SUPER_ADMIN");
 
@@ -53,6 +105,7 @@ export function AdminSidebar({ role, userName }: { role: "SUPER_ADMIN" | "EDITOR
       {items.map((item) => {
         const active = item.exact ? pathname === item.href : pathname.startsWith(item.href);
         const Icon = item.icon;
+        const badgeCount = item.notificationKey === "internships" ? newInternshipCount : 0;
         return (
           <Link
             key={item.href}
@@ -64,7 +117,12 @@ export function AdminSidebar({ role, userName }: { role: "SUPER_ADMIN" | "EDITOR
             )}
           >
             <Icon size={17} />
-            {item.label}
+            <span className="flex-1">{item.label}</span>
+            {badgeCount > 0 && (
+              <span className="flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-brass px-1.5 text-[11px] font-semibold text-ink">
+                {badgeCount > 99 ? "99+" : badgeCount}
+              </span>
+            )}
           </Link>
         );
       })}
