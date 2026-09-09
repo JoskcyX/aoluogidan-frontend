@@ -10,16 +10,7 @@ import type { Metadata } from "next";
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const { lawyer } = await api.getLawyer(params.slug).catch(() => ({ lawyer: null }));
   if (!lawyer) return {};
-  const description = lawyer.seoDescription ?? lawyer.bioShort ?? undefined;
-  return {
-    title: lawyer.seoTitle ?? lawyer.name,
-    description,
-    openGraph: {
-      title: lawyer.seoTitle ?? lawyer.name,
-      description,
-      images: lawyer.photoUrl ? [{ url: lawyer.photoUrl }] : undefined,
-    },
-  };
+  return { title: lawyer.seoTitle ?? lawyer.name, description: lawyer.seoDescription ?? lawyer.bioShort ?? undefined };
 }
 
 export default async function LawyerProfilePage({ params }: { params: { slug: string } }) {

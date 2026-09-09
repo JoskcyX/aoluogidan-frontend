@@ -2,10 +2,7 @@ import { notFound } from "next/navigation";
 import { api } from "@/lib/api";
 import { Container } from "@/components/ui/container";
 
-export const metadata = {
-  title: "Disclaimer",
-  description: "Important legal disclaimers regarding the information on this website.",
-};
+export const metadata = { title: "Disclaimer" };
 
 export default async function LegalPage() {
   const { page } = await api.getPageBySlug("disclaimer").catch(() => ({ page: null }));

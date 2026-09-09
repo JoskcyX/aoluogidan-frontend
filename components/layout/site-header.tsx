@@ -44,7 +44,7 @@ export function SiteHeader({ firmName, logoUrl }: { firmName: string; logoUrl?: 
           {logoUrl && (
             <Image
               src={logoUrl}
-              alt={firmName}
+              alt=""
               width={scrolled ? 36 : 44}
               height={scrolled ? 36 : 44}
               unoptimized

@@ -4,10 +4,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 import { PracticeAreaCard } from "@/components/ui/practice-area-card";
 
-export const metadata = {
-  title: "Practice Areas",
-  description: "Explore the areas of law we practice, from corporate advisory to dispute resolution.",
-};
+export const metadata = { title: "Practice Areas" };
 
 export default async function PracticeAreasPage() {
   const [{ practiceAreas: areas }, { settings }, { pageHeroes }] = await Promise.all([

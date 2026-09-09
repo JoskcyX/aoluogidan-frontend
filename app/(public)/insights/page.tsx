@@ -5,10 +5,7 @@ import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 
-export const metadata = {
-  title: "Legal Insights",
-  description: "Articles and updates on legal developments, written by our team.",
-};
+export const metadata = { title: "Legal Insights" };
 
 const PAGE_SIZE = 6;
 
