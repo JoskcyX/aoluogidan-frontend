@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { testimonialSchema, type TestimonialFormValues } from "@/lib/validations/misc";
-import { Input, Textarea, Label, FieldError } from "@/components/ui/input";
+import { Input, Label, FieldError } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ImageUploader } from "@/components/admin/image-uploader";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 
 export function TestimonialForm({
   defaultValues,
@@ -23,6 +24,7 @@ export function TestimonialForm({
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<TestimonialFormValues>({
     resolver: zodResolver(testimonialSchema),
@@ -58,7 +60,13 @@ export function TestimonialForm({
 
       <div>
         <Label htmlFor="testimonial" required>Testimonial</Label>
-        <Textarea id="testimonial" rows={4} {...register("testimonial")} />
+        <Controller
+          control={control}
+          name="testimonial"
+          render={({ field }) => (
+            <RichTextEditor value={field.value ?? ""} onChange={field.onChange} variant="minimal" placeholder="Write the testimonial…" />
+          )}
+        />
         <FieldError message={errors.testimonial?.message} />
       </div>
 

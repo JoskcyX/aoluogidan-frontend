@@ -82,7 +82,12 @@ export default async function LawyerProfilePage({ params }: { params: { slug: st
           </div>
         )}
 
-        {lawyer.bio && <p className="mt-8 leading-relaxed text-slate">{lawyer.bio}</p>}
+        {lawyer.bio && (
+          <div
+            className="prose-legal mt-8 max-w-none text-slate"
+            dangerouslySetInnerHTML={{ __html: lawyer.bio }}
+          />
+        )}
 
         <div className="mt-10 grid gap-8 sm:grid-cols-2">
           {lawyer.education && (

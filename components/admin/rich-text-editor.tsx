@@ -24,7 +24,17 @@ import {
   Heading3,
 } from "lucide-react";
 
-export function RichTextEditor({ value, onChange }: { value: string; onChange: (html: string) => void }) {
+export function RichTextEditor({
+  value,
+  onChange,
+  variant = "full",
+  placeholder = "Write here…",
+}: {
+  value: string;
+  onChange: (html: string) => void;
+  variant?: "full" | "minimal";
+  placeholder?: string;
+}) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
@@ -36,11 +46,13 @@ export function RichTextEditor({ value, onChange }: { value: string; onChange: (
       TableRow,
       TableCell,
       TableHeader,
-      Placeholder.configure({ placeholder: "Write your article…" }),
+      Placeholder.configure({ placeholder }),
     ],
     content: value,
     editorProps: {
-      attributes: { class: "prose-legal min-h-[300px] px-4 py-3 focus:outline-none" },
+      attributes: {
+        class: `prose-legal ${variant === "minimal" ? "min-h-[120px]" : "min-h-[300px]"} px-4 py-3 focus:outline-none`,
+      },
     },
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
     immediatelyRender: false,
@@ -75,36 +87,44 @@ export function RichTextEditor({ value, onChange }: { value: string; onChange: (
   return (
     <div className="border border-line bg-white">
       <div className="flex flex-wrap gap-1 border-b border-line bg-surface p-2">
-        <Btn label="Heading 2" active={editor.isActive("heading", { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><Heading2 size={16} /></Btn>
-        <Btn label="Heading 3" active={editor.isActive("heading", { level: 3 })} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><Heading3 size={16} /></Btn>
+        {variant === "full" && (
+          <>
+            <Btn label="Heading 2" active={editor.isActive("heading", { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><Heading2 size={16} /></Btn>
+            <Btn label="Heading 3" active={editor.isActive("heading", { level: 3 })} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><Heading3 size={16} /></Btn>
+          </>
+        )}
         <Btn label="Bold" active={editor.isActive("bold")} onClick={() => editor.chain().focus().toggleBold().run()}><Bold size={16} /></Btn>
         <Btn label="Italic" active={editor.isActive("italic")} onClick={() => editor.chain().focus().toggleItalic().run()}><Italic size={16} /></Btn>
         <Btn label="Bullet List" active={editor.isActive("bulletList")} onClick={() => editor.chain().focus().toggleBulletList().run()}><List size={16} /></Btn>
         <Btn label="Numbered List" active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()}><ListOrdered size={16} /></Btn>
         <Btn label="Quote" active={editor.isActive("blockquote")} onClick={() => editor.chain().focus().toggleBlockquote().run()}><Quote size={16} /></Btn>
-        <Btn
-          label="Link"
-          active={editor.isActive("link")}
-          onClick={() => {
-            const url = window.prompt("Enter URL");
-            if (url) editor.chain().focus().setLink({ href: url }).run();
-          }}
-        >
-          <LinkIcon size={16} />
-        </Btn>
-        <Btn label="Image" onClick={() => fileInputRef.current?.click()}><ImageIcon size={16} /></Btn>
-        <Btn label="Table" onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}><TableIcon size={16} /></Btn>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          className="hidden"
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) uploadImage(file);
-            e.target.value = "";
-          }}
-        />
+        {variant === "full" && (
+          <>
+            <Btn
+              label="Link"
+              active={editor.isActive("link")}
+              onClick={() => {
+                const url = window.prompt("Enter URL");
+                if (url) editor.chain().focus().setLink({ href: url }).run();
+              }}
+            >
+              <LinkIcon size={16} />
+            </Btn>
+            <Btn label="Image" onClick={() => fileInputRef.current?.click()}><ImageIcon size={16} /></Btn>
+            <Btn label="Table" onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}><TableIcon size={16} /></Btn>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) uploadImage(file);
+                e.target.value = "";
+              }}
+            />
+          </>
+        )}
       </div>
       <EditorContent editor={editor} />
     </div>

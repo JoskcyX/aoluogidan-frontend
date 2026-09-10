@@ -255,7 +255,10 @@ export default async function HomePage() {
                 <Reveal key={t.id} delay={i * 100}>
                   <div className="h-full rounded-2xl border border-white/10 p-8 transition-colors duration-300 hover:border-brass/50">
                     <Quote className="text-brass" size={24} />
-                    <p className="mt-4 text-sm leading-relaxed text-white/80">&ldquo;{t.testimonial}&rdquo;</p>
+                    <div
+                      className="mt-4 text-sm leading-relaxed text-white/80 [&_p]:mb-2 last:[&_p]:mb-0"
+                      dangerouslySetInnerHTML={{ __html: t.testimonial }}
+                    />
                     <p className="mt-6 text-sm font-medium text-white">{t.clientName}</p>
                     {t.companyPosition && <p className="text-xs text-white/50">{t.companyPosition}</p>}
                   </div>

@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/layout/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 import { ChevronDown } from "lucide-react";
+import { stripHtml } from "@/lib/sanitize";
 
 export const metadata = {
   title: "Frequently Asked Questions",
@@ -30,7 +31,7 @@ export default async function FaqPage() {
     mainEntity: (allFaqs as any[]).map((f) => ({
       "@type": "Question",
       name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
+      acceptedAnswer: { "@type": "Answer", text: stripHtml(f.answer ?? "") },
     })),
   };
 
@@ -61,7 +62,10 @@ export default async function FaqPage() {
                     {f.question}
                     <ChevronDown className="faq-chevron shrink-0 text-brass-deep" size={18} />
                   </summary>
-                  <p className="mt-3 text-sm leading-relaxed text-slate">{f.answer}</p>
+                  <div
+                    className="prose-legal mt-3 max-w-none text-sm text-slate [&_p]:mb-2 last:[&_p]:mb-0"
+                    dangerouslySetInnerHTML={{ __html: f.answer }}
+                  />
                 </details>
               ))}
             </div>

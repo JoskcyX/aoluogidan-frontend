@@ -1,5 +1,4 @@
 import sanitizeHtml from "sanitize-html";
-
 /**
  * Sanitizes rich-text HTML before it is persisted to the database.
  *
@@ -44,4 +43,13 @@ export function sanitizeRichText(html: string): string {
     // rather than escaping it into visible text.
     disallowedTagsMode: "discard",
   });
+}
+
+/**
+ * Strips all HTML tags, returning plain text. Used when rich-text content
+ * (FAQ answers, etc.) needs to be embedded in a non-HTML context, such as
+ * a JSON-LD `text` field or a meta description.
+ */
+export function stripHtml(html: string): string {
+  return sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} }).trim();
 }

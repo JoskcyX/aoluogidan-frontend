@@ -48,6 +48,14 @@ body {
   outline-offset: 2px;
 }
 
+/* Headings across the site use the display (serif) font — give them a
+   confident weight by default so section titles and page headers read as
+   headings rather than body text. Individual elements can still override
+   with an explicit font-weight utility if a lighter look is wanted. */
+.font-display {
+  font-weight: 600;
+}
+
 /* Underline that grows from the left on hover — used for nav links */
 .link-underline {
   position: relative;

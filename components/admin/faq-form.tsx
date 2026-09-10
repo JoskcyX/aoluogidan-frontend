@@ -1,12 +1,13 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { faqSchema, type FaqFormValues } from "@/lib/validations/misc";
-import { Input, Textarea, Label, FieldError, Select } from "@/components/ui/input";
+import { Input, Label, FieldError, Select } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import type { PracticeArea } from "@/lib/types";
 
 export function FaqForm({
@@ -22,6 +23,7 @@ export function FaqForm({
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<FaqFormValues>({ resolver: zodResolver(faqSchema), defaultValues: { published: true, ...defaultValues } });
 
@@ -47,7 +49,13 @@ export function FaqForm({
       </div>
       <div>
         <Label htmlFor="answer" required>Answer</Label>
-        <Textarea id="answer" rows={5} {...register("answer")} />
+        <Controller
+          control={control}
+          name="answer"
+          render={({ field }) => (
+            <RichTextEditor value={field.value ?? ""} onChange={field.onChange} variant="minimal" placeholder="Write the answer…" />
+          )}
+        />
         <FieldError message={errors.answer?.message} />
       </div>
       <div className="grid gap-5 sm:grid-cols-2">

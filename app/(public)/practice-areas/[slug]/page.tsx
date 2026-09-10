@@ -69,7 +69,10 @@ export default async function PracticeAreaDetailPage({ params }: { params: { slu
                 {relatedFaqs.map((f: any) => (
                   <details key={f.id} className="group py-4">
                     <summary className="cursor-pointer list-none font-medium text-ink">{f.question}</summary>
-                    <p className="mt-2 text-sm leading-relaxed text-slate">{f.answer}</p>
+                    <div
+                      className="prose-legal mt-2 max-w-none text-sm text-slate [&_p]:mb-2 last:[&_p]:mb-0"
+                      dangerouslySetInnerHTML={{ __html: f.answer }}
+                    />
                   </details>
                 ))}
               </div>

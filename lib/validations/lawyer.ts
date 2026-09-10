@@ -18,6 +18,7 @@ export const lawyerSchema = z.object({
   phone: z.string().trim().max(50).optional().nullable(),
   published: z.boolean().default(false),
   featuredHome: z.boolean().default(false),
+  displayOrder: z.coerce.number().int().min(0).max(1000).default(0),
   seoTitle: z.string().trim().max(255).optional().nullable(),
   seoDescription: z.string().trim().max(500).optional().nullable(),
   practiceAreaIds: z.array(z.string()).default([]),

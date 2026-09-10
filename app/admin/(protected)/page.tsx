@@ -7,17 +7,17 @@ import { Users, Scale, Newspaper, Inbox, Quote, GraduationCap, FilePlus, UserPlu
 
 export default async function AdminDashboardPage() {
   const {
-    lawyerCount,
-    practiceAreaCount,
-    publishedCount,
-    draftCount,
-    unreadCount,
-    testimonialCount,
+    lawyerCount = 0,
+    practiceAreaCount = 0,
+    publishedCount = 0,
+    draftCount = 0,
+    unreadCount = 0,
+    testimonialCount = 0,
     internshipCount = 0,
     recentEnquiries = [],
     recentInternshipApplications = [],
     recentActivity = [],
-  } = await adminFetchJson("/api/admin/dashboard");
+  } = await adminFetchJson("/api/admin/dashboard").catch(() => ({}));
 
   const stats = [
     { label: "Total Lawyers", value: lawyerCount, icon: Users, href: "/admin/lawyers" },

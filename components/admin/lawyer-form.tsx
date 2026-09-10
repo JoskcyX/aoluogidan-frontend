@@ -9,6 +9,7 @@ import { lawyerSchema, type LawyerFormValues } from "@/lib/validations/lawyer";
 import { Input, Textarea, Label, FieldError } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ImageUploader } from "@/components/admin/image-uploader";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { Plus } from "lucide-react";
 import type { PracticeArea } from "@/lib/types";
 
@@ -39,6 +40,7 @@ export function LawyerForm({
     defaultValues: {
       published: false,
       featuredHome: false,
+      displayOrder: 0,
       practiceAreaIds: [],
       ...defaultValues,
     },
@@ -113,6 +115,11 @@ export function LawyerForm({
             <Input id="position" {...register("position")} placeholder="e.g. Managing Partner" />
             <FieldError message={errors.position?.message} />
           </div>
+          <div>
+            <Label htmlFor="displayOrder">Display Order on Website</Label>
+            <Input id="displayOrder" type="number" min={0} {...register("displayOrder")} />
+            <p className="mt-1 text-xs text-slate">Lower numbers appear first on the Team page. Use 0, 10, 20… to leave room to reorder later.</p>
+          </div>
         </div>
 
         <div className="mt-5">
@@ -127,7 +134,18 @@ export function LawyerForm({
 
         <div className="mt-5">
           <Label htmlFor="bio">Full Biography</Label>
-          <Textarea id="bio" rows={6} {...register("bio")} />
+          <Controller
+            control={control}
+            name="bio"
+            render={({ field }) => (
+              <RichTextEditor
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                variant="minimal"
+                placeholder="Write the lawyer's full biography. Use paragraphs, bold, and italics as needed."
+              />
+            )}
+          />
         </div>
       </section>
 
