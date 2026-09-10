@@ -272,11 +272,18 @@ export default async function HomePage() {
           <Reveal className="flex flex-col items-center gap-6 rounded-2xl border border-line bg-surface px-8 py-16 text-center">
             <h2 className="font-display text-3xl text-ink sm:text-4xl">Need Legal Advice?</h2>
             <p className="max-w-md text-slate">Speak with our legal team about your situation.</p>
-            <Link href="/consultation">
-              <Button size="lg" className="transition-transform duration-200 hover:scale-105">
-                Request a Consultation
-              </Button>
-            </Link>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/consultation">
+                <Button size="lg" className="transition-transform duration-200 hover:scale-105">
+                  Request a Consultation
+                </Button>
+              </Link>
+              <Link href="/internship">
+                <Button size="lg" variant="secondary" className="transition-transform duration-200 hover:scale-105">
+                  Apply for an Internship
+                </Button>
+              </Link>
+            </div>
           </Reveal>
         </Container>
       </section>

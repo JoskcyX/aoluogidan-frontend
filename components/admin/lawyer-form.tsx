@@ -9,6 +9,7 @@ import { lawyerSchema, type LawyerFormValues } from "@/lib/validations/lawyer";
 import { Input, Textarea, Label, FieldError } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ImageUploader } from "@/components/admin/image-uploader";
+import { Plus } from "lucide-react";
 import type { PracticeArea } from "@/lib/types";
 
 export function LawyerForm({
@@ -22,11 +23,16 @@ export function LawyerForm({
 }) {
   const router = useRouter();
   const [photoUrl, setPhotoUrl] = useState<string | null>(defaultValues?.photoUrl ?? null);
+  const [areas, setAreas] = useState<PracticeArea[]>(practiceAreas);
+  const [newAreaName, setNewAreaName] = useState("");
+  const [addingArea, setAddingArea] = useState(false);
 
   const {
     register,
     handleSubmit,
     control,
+    setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<LawyerFormValues>({
     resolver: zodResolver(lawyerSchema),
@@ -37,6 +43,39 @@ export function LawyerForm({
       ...defaultValues,
     },
   });
+
+  const handleAddArea = async () => {
+    const name = newAreaName.trim();
+    if (!name) return;
+
+    setAddingArea(true);
+    try {
+      const res = await fetch("/api/admin/practice-areas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          shortDescription: `Legal services related to ${name}.`,
+          published: true,
+        }),
+      });
+
+      const body = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        toast.error(body.error ?? "Couldn't add that practice area.");
+        return;
+      }
+
+      const created = body.practiceArea;
+      setAreas((prev) => [...prev, created]);
+      setValue("practiceAreaIds", [...(getValues("practiceAreaIds") ?? []), created.id]);
+      setNewAreaName("");
+      toast.success(`"${created.name}" added and selected.`);
+    } finally {
+      setAddingArea(false);
+    }
+  };
 
   const onSubmit = async (values: LawyerFormValues) => {
     const payload = { ...values, photoUrl };
@@ -116,34 +155,62 @@ export function LawyerForm({
             <Textarea id="memberships" rows={2} {...register("memberships")} />
           </div>
           <div>
-            <Label htmlFor="awards">Areas of Practice</Label>
-            <Textarea id="awards" rows={2} {...register("awards")} placeholder="e.g. Corporate Law, Litigation, Real Estate" />
+            <Label htmlFor="awards">Awards</Label>
+            <Textarea id="awards" rows={2} {...register("awards")} placeholder="e.g. Best Young Lawyer 2023, Chambers Ranked Attorney" />
           </div>
         </div>
       </section>
 
       <section className="border border-line bg-white p-6">
         <h2 className="font-display text-lg text-ink">Practice Areas</h2>
+        <p className="mt-1 text-sm text-slate">
+          Select every practice area this lawyer works in. Don&apos;t see one listed? Add it below —
+          it'll be created and selected right away.
+        </p>
         <Controller
           control={control}
           name="practiceAreaIds"
           render={({ field }) => (
-            <div className="mt-4 grid gap-2 sm:grid-cols-2">
-              {practiceAreas.map((pa) => (
-                <label key={pa.id} className="flex items-center gap-2 text-sm text-ink">
-                  <input
-                    type="checkbox"
-                    checked={field.value?.includes(pa.id)}
-                    onChange={(e) => {
-                      const set = new Set(field.value ?? []);
-                      e.target.checked ? set.add(pa.id) : set.delete(pa.id);
-                      field.onChange(Array.from(set));
+            <>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                {areas.map((pa) => (
+                  <label key={pa.id} className="flex items-center gap-2 text-sm text-ink">
+                    <input
+                      type="checkbox"
+                      checked={field.value?.includes(pa.id)}
+                      onChange={(e) => {
+                        const set = new Set(field.value ?? []);
+                        e.target.checked ? set.add(pa.id) : set.delete(pa.id);
+                        field.onChange(Array.from(set));
+                      }}
+                    />
+                    {pa.name}
+                  </label>
+                ))}
+                {areas.length === 0 && <p className="text-sm text-slate">No practice areas yet — add the first one below.</p>}
+              </div>
+
+              <div className="mt-5 flex flex-wrap items-end gap-3 border-t border-line pt-5">
+                <div className="flex-1 min-w-[200px]">
+                  <Label htmlFor="newPracticeArea">Add a new practice area</Label>
+                  <Input
+                    id="newPracticeArea"
+                    placeholder="e.g. Intellectual Property"
+                    value={newAreaName}
+                    onChange={(e) => setNewAreaName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        void handleAddArea();
+                      }
                     }}
                   />
-                  {pa.name}
-                </label>
-              ))}
-            </div>
+                </div>
+                <Button type="button" variant="secondary" disabled={addingArea} onClick={() => void handleAddArea()}>
+                  <Plus size={16} className="mr-1" /> {addingArea ? "Adding…" : "Add"}
+                </Button>
+              </div>
+            </>
           )}
         />
       </section>

@@ -14,7 +14,6 @@ export default async function AdminDashboardPage() {
     unreadCount,
     testimonialCount,
     internshipCount = 0,
-    newInternshipCount = 0,
     recentEnquiries = [],
     recentInternshipApplications = [],
     recentActivity = [],
@@ -27,8 +26,7 @@ export default async function AdminDashboardPage() {
     { label: "Draft Articles", value: draftCount, icon: Newspaper, href: "/admin/blog" },
     { label: "Unread Enquiries", value: unreadCount, icon: Inbox, href: "/admin/enquiries" },
     { label: "Published Testimonials", value: testimonialCount, icon: Quote, href: "/admin/testimonials" },
-    { label: "Internship Applicants", value: internshipCount, icon: GraduationCap, href: "/admin/internships" },
-    { label: "New Internship Applicants", value: newInternshipCount, icon: GraduationCap, href: "/admin/internships" },
+    { label: "Internship Applications", value: internshipCount, icon: GraduationCap, href: "/admin/internships" },
   ];
 
   return (
