@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { Linkedin, Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Linkedin, Instagram, Twitter, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -22,7 +22,6 @@ export function SiteFooter({
 }) {
   const socials = [
     { href: settings.socialLinkedin, label: "LinkedIn", Icon: Linkedin },
-    { href: settings.socialFacebook, label: "Facebook", Icon: Facebook },
     { href: settings.socialInstagram, label: "Instagram", Icon: Instagram },
     { href: settings.socialX, label: "X", Icon: Twitter },
   ].filter((s) => s.href);
@@ -76,6 +75,19 @@ export function SiteFooter({
               <li className="flex items-start gap-2">
                 <Phone size={15} className="mt-0.5 shrink-0 text-white/50" />
                 <a href={`tel:${settings.phone}`} className="hover:text-brass">{settings.phone}</a>
+              </li>
+            )}
+            {settings.whatsapp && (
+              <li className="flex items-start gap-2">
+                <MessageCircle size={15} className="mt-0.5 shrink-0 text-white/50" />
+                <a
+                  href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, "")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-brass"
+                >
+                  WhatsApp: {settings.whatsapp}
+                </a>
               </li>
             )}
             {settings.email && (

@@ -30,15 +30,26 @@ export default async function AboutPage() {
 
       <Container className="grid gap-16 py-20 lg:grid-cols-3">
         <div className="space-y-12 lg:col-span-2">
+          {about.historyText && (
+            <Reveal delay={0}>
+              <h2 className="font-display text-2xl text-ink">Our History</h2>
+              {/* Rich text from the admin editor — supports multiple paragraphs
+                  and bolded phrases, unlike the plain-text sections below. */}
+              <div
+                className="prose-legal mt-3 max-w-none [&_p]:text-slate"
+                dangerouslySetInnerHTML={{ __html: about.historyText }}
+              />
+            </Reveal>
+          )}
+
           {[
-            ["Our History", about.historyText],
             ["Mission", about.missionText],
             ["Vision", about.visionText],
             ["Our Approach", about.approachText],
             ["Why Clients Choose Us", about.whyClientsText],
           ].map(([heading, text], i) =>
             text ? (
-              <Reveal key={heading} delay={i * 60}>
+              <Reveal key={heading} delay={(i + 1) * 60}>
                 <h2 className="font-display text-2xl text-ink">{heading}</h2>
                 <p className="mt-3 leading-relaxed text-slate">{text}</p>
               </Reveal>

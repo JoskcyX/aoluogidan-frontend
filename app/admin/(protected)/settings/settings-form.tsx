@@ -16,6 +16,12 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
   const [heroImageUrl2, setHeroImageUrl2] = useState<string | null>(settings.heroImageUrl2 ?? null);
   const [heroImageUrl3, setHeroImageUrl3] = useState<string | null>(settings.heroImageUrl3 ?? null);
   const [heroImageUrl4, setHeroImageUrl4] = useState<string | null>(settings.heroImageUrl4 ?? null);
+  const [clientLogoUrl1, setClientLogoUrl1] = useState<string | null>(settings.clientLogoUrl1 ?? null);
+  const [clientLogoUrl2, setClientLogoUrl2] = useState<string | null>(settings.clientLogoUrl2 ?? null);
+  const [clientLogoUrl3, setClientLogoUrl3] = useState<string | null>(settings.clientLogoUrl3 ?? null);
+  const [clientLogoUrl4, setClientLogoUrl4] = useState<string | null>(settings.clientLogoUrl4 ?? null);
+  const [clientLogoUrl5, setClientLogoUrl5] = useState<string | null>(settings.clientLogoUrl5 ?? null);
+  const [clientLogoUrl6, setClientLogoUrl6] = useState<string | null>(settings.clientLogoUrl6 ?? null);
 
   const {
     register,
@@ -24,7 +30,20 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
   } = useForm<SettingsFormValues>({ resolver: zodResolver(settingsSchema), defaultValues: settings });
 
   const onSubmit = async (values: SettingsFormValues) => {
-    const payload = { ...values, logoUrl, heroImageUrl, heroImageUrl2, heroImageUrl3, heroImageUrl4 };
+    const payload = {
+      ...values,
+      logoUrl,
+      heroImageUrl,
+      heroImageUrl2,
+      heroImageUrl3,
+      heroImageUrl4,
+      clientLogoUrl1,
+      clientLogoUrl2,
+      clientLogoUrl3,
+      clientLogoUrl4,
+      clientLogoUrl5,
+      clientLogoUrl6,
+    };
     const res = await fetch("/api/admin/settings", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -145,6 +164,21 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
           <div><Label htmlFor="statLawyersCount">Legal Professionals</Label><Input id="statLawyersCount" type="number" {...register("statLawyersCount")} /></div>
           <div><Label htmlFor="statPracticeAreasCount">Practice Areas</Label><Input id="statPracticeAreasCount" type="number" {...register("statPracticeAreasCount")} /></div>
           <div><Label htmlFor="statClientsServed">Clients Served</Label><Input id="statClientsServed" type="number" {...register("statClientsServed")} /></div>
+        </div>
+
+        <h3 className="mt-8 text-sm font-semibold uppercase tracking-widest text-slate">Client Logos</h3>
+        <p className="mt-1 text-sm text-slate">
+          Optional. Upload logos of clients or organizations you work with (e.g. CBN). They&apos;ll appear as a
+          &quot;Trusted By&quot; strip right below the statistics on the homepage. Leave all of these empty to keep
+          the homepage exactly as it is now — the section only appears once at least one logo is uploaded.
+        </p>
+        <div className="mt-4 grid gap-6 sm:grid-cols-3 lg:grid-cols-6">
+          <ImageUploader value={clientLogoUrl1} onChange={setClientLogoUrl1} folder="general" label="Logo 1" />
+          <ImageUploader value={clientLogoUrl2} onChange={setClientLogoUrl2} folder="general" label="Logo 2" />
+          <ImageUploader value={clientLogoUrl3} onChange={setClientLogoUrl3} folder="general" label="Logo 3" />
+          <ImageUploader value={clientLogoUrl4} onChange={setClientLogoUrl4} folder="general" label="Logo 4" />
+          <ImageUploader value={clientLogoUrl5} onChange={setClientLogoUrl5} folder="general" label="Logo 5" />
+          <ImageUploader value={clientLogoUrl6} onChange={setClientLogoUrl6} folder="general" label="Logo 6" />
         </div>
       </section>
 

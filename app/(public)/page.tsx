@@ -127,6 +127,46 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      {/* Trusted By — optional client logo strip. Renders nothing (page looks
+          exactly as it does today) until at least one logo is uploaded from
+          Admin → Settings → Homepage → Client Logos. */}
+      {(() => {
+        const clientLogos = [
+          settings.clientLogoUrl1,
+          settings.clientLogoUrl2,
+          settings.clientLogoUrl3,
+          settings.clientLogoUrl4,
+          settings.clientLogoUrl5,
+          settings.clientLogoUrl6,
+        ].filter((url): url is string => Boolean(url));
+
+        if (clientLogos.length === 0) return null;
+
+        return (
+          <section className="border-b border-line bg-surface py-12">
+            <Container>
+              <Reveal>
+                <p className="text-center text-xs font-semibold uppercase tracking-[0.25em] text-slate">
+                  Trusted By
+                </p>
+                <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+                  {clientLogos.map((url, i) => (
+                    <Image
+                      key={i}
+                      src={url}
+                      alt="Client logo"
+                      width={140}
+                      height={56}
+                      className="h-10 w-auto object-contain opacity-70 grayscale transition-all duration-200 hover:opacity-100 hover:grayscale-0"
+                    />
+                  ))}
+                </div>
+              </Reveal>
+            </Container>
+          </section>
+        );
+      })()}
+
       {/* Practice Areas */}
       <section className="py-24">
         <Container>
@@ -277,12 +317,12 @@ export default async function HomePage() {
             <p className="max-w-md text-slate">Speak with our legal team about your situation.</p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/consultation">
-                <Button size="lg" className="transition-transform duration-200 hover:scale-105">
+                <Button size="lg" className="rounded-md transition-transform duration-200 hover:scale-105">
                   Request a Consultation
                 </Button>
               </Link>
               <Link href="/internship">
-                <Button size="lg" variant="secondary" className="transition-transform duration-200 hover:scale-105">
+                <Button size="lg" variant="secondary" className="rounded-md transition-transform duration-200 hover:scale-105">
                   Apply for an Internship
                 </Button>
               </Link>

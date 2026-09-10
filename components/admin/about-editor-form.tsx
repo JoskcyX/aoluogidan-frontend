@@ -7,6 +7,7 @@ import { X, Plus } from "lucide-react";
 import { aboutContentSchema, type AboutContentFormValues } from "@/lib/validations/misc";
 import { Input, Textarea, Label } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 
 export function AboutEditorForm({ defaultValues }: { defaultValues: AboutContentFormValues }) {
   const { register, handleSubmit, control, formState: { isSubmitting } } = useForm<AboutContentFormValues>({
@@ -33,7 +34,21 @@ export function AboutEditorForm({ defaultValues }: { defaultValues: AboutContent
       <section className="space-y-5 border border-line bg-white p-6">
         <div><Label htmlFor="introHeading" required>Heading</Label><Input id="introHeading" {...register("introHeading")} /></div>
         <div><Label htmlFor="introText">Introduction</Label><Textarea id="introText" rows={3} {...register("introText")} /></div>
-        <div><Label htmlFor="historyText">History</Label><Textarea id="historyText" rows={3} {...register("historyText")} /></div>
+        <div>
+          <Label htmlFor="historyText">History</Label>
+          <Controller
+            control={control}
+            name="historyText"
+            render={({ field }) => (
+              <RichTextEditor
+                variant="minimal"
+                value={field.value ?? ""}
+                onChange={field.onChange}
+                placeholder="Write the firm's history here. Press Enter to start a new paragraph, and use the Bold button to emphasize key phrases…"
+              />
+            )}
+          />
+        </div>
         <div><Label htmlFor="missionText">Mission</Label><Textarea id="missionText" rows={2} {...register("missionText")} /></div>
         <div><Label htmlFor="visionText">Vision</Label><Textarea id="visionText" rows={2} {...register("visionText")} /></div>
         <div><Label htmlFor="approachText">Our Approach</Label><Textarea id="approachText" rows={3} {...register("approachText")} /></div>
