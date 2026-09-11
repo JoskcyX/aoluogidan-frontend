@@ -43,7 +43,7 @@ export function HeroTextRotator({
     <>
       <h1
         className={[
-          "font-display text-4xl leading-[1.1] sm:text-5xl lg:text-6xl",
+          "font-hero text-4xl leading-[1.1] sm:text-5xl lg:text-6xl",
           "transition-all ease-out",
           "duration-500",
           entered ? "translate-y-0 opacity-100 blur-none" : "translate-y-4 opacity-0 blur-sm",

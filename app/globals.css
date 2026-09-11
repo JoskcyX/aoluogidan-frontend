@@ -20,8 +20,9 @@
   --color-burgundy: #7c2d3a;
   --color-navy: #0a1f44;
 
-  --font-display: "Cinzel", ui-serif, Georgia, serif;
+  --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-hero: "Cinzel", ui-serif, Georgia, serif;
 }
 
 * {
@@ -48,12 +49,22 @@ body {
   outline-offset: 2px;
 }
 
-/* Headings across the site use the display (serif) font — give them a
-   confident weight by default so section titles and page headers read as
+/* Headings across the site (section titles, page headers, lawyer names,
+   etc.) use the display font and are bolded by default so they read as
    headings rather than body text. Individual elements can still override
-   with an explicit font-weight utility if a lighter look is wanted. */
+   with an explicit font-weight utility if a lighter look is wanted.
+   The homepage hero heading is the one exception — it uses the separate
+   .font-hero class below instead, so this rule doesn't apply to it. */
 .font-display {
-  font-weight: 600;
+  font-weight: 700;
+}
+
+/* Homepage hero heading only — keeps the Cinzel display serif at its
+   natural (unbolded) weight for a lighter, more elegant look than the
+   bolded DM Sans used for every other heading on the site. */
+.font-hero {
+  font-family: var(--font-hero);
+  font-weight: 400;
 }
 
 /* Underline that grows from the left on hover — used for nav links */

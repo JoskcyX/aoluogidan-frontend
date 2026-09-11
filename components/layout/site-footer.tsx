@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Linkedin, Instagram, Twitter, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
@@ -30,12 +29,7 @@ export function SiteFooter({
     <footer className="border-t border-line bg-ink text-white/80">
       <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <div className="flex items-center gap-3">
-            {settings.logoUrl && (
-              <Image src={settings.logoUrl} alt={settings.firmName} width={36} height={36} className="rounded-full" />
-            )}
-            <p className="font-display text-xl text-white">{settings.firmName}</p>
-          </div>
+          <p className="font-display text-xl text-white">{settings.firmName}</p>
           {settings.footerDescription && (
             <p className="mt-4 max-w-xs text-sm leading-relaxed">{settings.footerDescription}</p>
           )}
