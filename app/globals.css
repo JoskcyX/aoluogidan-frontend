@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap");
 
 :root {
   /* ------------------------------------------------------------------ */
@@ -20,9 +20,9 @@
   --color-burgundy: #7c2d3a;
   --color-navy: #0a1f44;
 
-  --font-display: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-hero: "Cinzel", ui-serif, Georgia, serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-hero: "Times New Roman", Times, ui-serif, Georgia, serif;
 }
 
 * {
@@ -50,18 +50,18 @@ body {
 }
 
 /* Headings across the site (section titles, page headers, lawyer names,
-   etc.) use the display font and are bolded by default so they read as
-   headings rather than body text. Individual elements can still override
-   with an explicit font-weight utility if a lighter look is wanted.
-   The homepage hero heading is the one exception — it uses the separate
-   .font-hero class below instead, so this rule doesn't apply to it. */
+   etc.) use the display font (Poppins) at bold weight by default so they
+   read as headings rather than body text. Individual elements can still
+   override with an explicit font-weight utility if a lighter look is
+   wanted. The homepage hero heading is the one exception — it uses the
+   separate .font-hero class below instead, so this rule doesn't apply to it. */
 .font-display {
   font-weight: 700;
 }
 
-/* Homepage hero heading only — keeps the Cinzel display serif at its
-   natural (unbolded) weight for a lighter, more elegant look than the
-   bolded DM Sans used for every other heading on the site. */
+/* Homepage hero heading only — set in Times New Roman at its natural
+   (unbolded/regular) weight for a lighter, more elegant look than the
+   bolded Poppins used for every other heading on the site. */
 .font-hero {
   font-family: var(--font-hero);
   font-weight: 400;
