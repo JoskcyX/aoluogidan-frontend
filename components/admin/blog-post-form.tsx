@@ -61,6 +61,15 @@ export function BlogPostForm({
           <FieldError message={errors.title?.message} />
         </div>
         <div className="mt-5">
+          <Label htmlFor="authorName">Author</Label>
+          <Input
+            id="authorName"
+            {...register("authorName")}
+            placeholder="Defaults to your name if left blank"
+          />
+          <FieldError message={errors.authorName?.message} />
+        </div>
+        <div className="mt-5">
           <Label htmlFor="excerpt">Excerpt</Label>
           <Textarea id="excerpt" rows={2} {...register("excerpt")} placeholder="Shown on listing cards and search results." />
         </div>
