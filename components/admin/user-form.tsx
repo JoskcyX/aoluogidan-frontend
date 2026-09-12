@@ -17,23 +17,16 @@ export function UserForm({ defaultValues, userId }: { defaultValues?: Partial<Us
   } = useForm<UserFormValues>({ resolver: zodResolver(userSchema), defaultValues: { role: "EDITOR", isActive: true, ...defaultValues } });
 
   const onSubmit = async (values: UserFormValues) => {
-    try {
-      const res = await fetch(userId ? `/api/admin/users/${userId}` : "/api/admin/users", {
-        method: userId ? "PATCH" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-      toast.success(userId ? "Admin updated." : "Admin added.");
-      router.push("/admin/users");
-      router.refresh();
-    } catch {
-      // fetch() itself threw (dropped connection, backend unreachable, etc.)
-      // — without this catch the promise rejection was silent and the page
-      // looked like Save did nothing at all.
-      toast.error("Couldn't reach the server. Check your connection and try again.");
-    }
+    const res = await fetch(userId ? `/api/admin/users/${userId}` : "/api/admin/users", {
+      method: userId ? "PATCH" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+    toast.success(userId ? "Admin updated." : "Admin added.");
+    router.push("/admin/users");
+    router.refresh();
   };
 
   return (

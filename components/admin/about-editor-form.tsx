@@ -19,18 +19,14 @@ export function AboutEditorForm({ defaultValues }: { defaultValues: AboutContent
   const whyChoose = useFieldArray({ control, name: "whyChooseUsItems" });
 
   const onSubmit = async (values: AboutContentFormValues) => {
-    try {
-      const res = await fetch("/api/admin/about", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-      toast.success("About page updated.");
-    } catch {
-      toast.error("Couldn't reach the server. Check your connection and try again.");
-    }
+    const res = await fetch("/api/admin/about", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+    toast.success("About page updated.");
   };
 
   return (

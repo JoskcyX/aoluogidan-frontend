@@ -28,20 +28,16 @@ export function FaqForm({
   } = useForm<FaqFormValues>({ resolver: zodResolver(faqSchema), defaultValues: { published: true, ...defaultValues } });
 
   const onSubmit = async (values: FaqFormValues) => {
-    try {
-      const res = await fetch(faqId ? `/api/admin/faqs/${faqId}` : "/api/admin/faqs", {
-        method: faqId ? "PATCH" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-      toast.success(faqId ? "FAQ updated." : "FAQ added.");
-      router.push("/admin/faqs");
-      router.refresh();
-    } catch {
-      toast.error("Couldn't reach the server. Check your connection and try again.");
-    }
+    const res = await fetch(faqId ? `/api/admin/faqs/${faqId}` : "/api/admin/faqs", {
+      method: faqId ? "PATCH" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+    toast.success(faqId ? "FAQ updated." : "FAQ added.");
+    router.push("/admin/faqs");
+    router.refresh();
   };
 
   return (

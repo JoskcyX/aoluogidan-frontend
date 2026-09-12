@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap");
-
 :root {
   /* ------------------------------------------------------------------ */
   /* Brand palette — edit these to rebrand the whole site from one place */
@@ -20,8 +18,13 @@
   --color-burgundy: #7c2d3a;
   --color-navy: #0a1f44;
 
-  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  /* Self-hosted via next/font/google in app/layout.tsx (see the --font-poppins
+     variable it injects) — this is what makes the real Poppins glyphs (the
+     double-story "a", etc.) render reliably everywhere, instead of silently
+     falling back to a system font when a third-party font CDN request gets
+     blocked. */
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-hero: "Times New Roman", Times, ui-serif, Georgia, serif;
 }
 

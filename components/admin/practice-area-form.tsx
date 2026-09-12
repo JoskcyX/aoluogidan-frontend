@@ -36,20 +36,16 @@ export function PracticeAreaForm({
   });
 
   const onSubmit = async (values: PracticeAreaFormValues) => {
-    try {
-      const res = await fetch(practiceAreaId ? `/api/admin/practice-areas/${practiceAreaId}` : "/api/admin/practice-areas", {
-        method: practiceAreaId ? "PATCH" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, imageUrl }),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-      toast.success(practiceAreaId ? "Practice area updated." : "Practice area added.");
-      router.push("/admin/practice-areas");
-      router.refresh();
-    } catch {
-      toast.error("Couldn't reach the server. Check your connection and try again.");
-    }
+    const res = await fetch(practiceAreaId ? `/api/admin/practice-areas/${practiceAreaId}` : "/api/admin/practice-areas", {
+      method: practiceAreaId ? "PATCH" : "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...values, imageUrl }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+    toast.success(practiceAreaId ? "Practice area updated." : "Practice area added.");
+    router.push("/admin/practice-areas");
+    router.refresh();
   };
 
   return (
