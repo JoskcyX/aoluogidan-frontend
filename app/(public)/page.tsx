@@ -127,7 +127,7 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* Trusted By — optional client logo strip. Renders nothing (page looks
+      {/* Clients Served — optional client logo strip. Renders nothing (page looks
           exactly as it does today) until at least one logo is uploaded from
           Admin → Settings → Homepage → Client Logos. */}
       {(() => {
@@ -147,7 +147,7 @@ export default async function HomePage() {
             <Container>
               <Reveal>
                 <p className="text-center text-xs font-semibold uppercase tracking-[0.25em] text-slate">
-                  Trusted By
+                  Clients Served
                 </p>
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
                   {clientLogos.map((url, i) => (

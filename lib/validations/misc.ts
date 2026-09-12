@@ -99,7 +99,7 @@ export const settingsSchema = z.object({
   statLawyersCount: z.coerce.number().int().min(0).max(10000),
   statPracticeAreasCount: z.coerce.number().int().min(0).max(1000),
   statClientsServed: z.coerce.number().int().min(0).max(1000000),
-  // Optional "Trusted By" client logo strip on the homepage, shown right below
+  // Optional "Clients Served" client logo strip on the homepage, shown right below
   // the stats bar. Each slot is optional — the section only renders once at
   // least one logo has been uploaded, and falls back to the current
   // stats-only layout when all slots are empty.

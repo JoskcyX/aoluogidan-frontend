@@ -169,7 +169,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
         <h3 className="mt-8 text-sm font-semibold uppercase tracking-widest text-slate">Client Logos</h3>
         <p className="mt-1 text-sm text-slate">
           Optional. Upload logos of clients or organizations you work with (e.g. CBN). They&apos;ll appear as a
-          &quot;Trusted By&quot; strip right below the statistics on the homepage. Leave all of these empty to keep
+          &quot;Clients Served&quot; strip right below the statistics on the homepage. Leave all of these empty to keep
           the homepage exactly as it is now — the section only appears once at least one logo is uploaded.
         </p>
         <div className="mt-4 grid gap-6 sm:grid-cols-3 lg:grid-cols-6">
