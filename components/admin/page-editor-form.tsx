@@ -16,14 +16,18 @@ export function PageEditorForm({ page }: { page: Page }) {
   } = useForm({ resolver: zodResolver(pageContentSchema), defaultValues: { title: page.title, content: page.content } });
 
   const onSubmit = async (values: { title: string; content: string }) => {
-    const res = await fetch(`/api/admin/pages/${page.slug}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const body = await res.json().catch(() => ({}));
-    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-    toast.success("Page updated.");
+    try {
+      const res = await fetch(`/api/admin/pages/${page.slug}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+      toast.success("Page updated.");
+    } catch {
+      toast.error("Couldn't reach the server. Check your connection and try again.");
+    }
   };
 
   return (

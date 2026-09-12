@@ -3,7 +3,6 @@ import { sanitizeRichText } from "@/lib/sanitize";
 
 export const blogPostSchema = z.object({
   title: z.string().trim().min(3, "Give the article a title.").max(300),
-  authorName: z.string().trim().max(150).optional().nullable(),
   excerpt: z.string().trim().max(500, "Keep the excerpt under 500 characters.").optional().nullable(),
   content: z
     .string()

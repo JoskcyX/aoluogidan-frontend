@@ -44,14 +44,18 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
       clientLogoUrl5,
       clientLogoUrl6,
     };
-    const res = await fetch("/api/admin/settings", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const body = await res.json().catch(() => ({}));
-    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-    toast.success("Settings saved. Changes are live on the website.");
+    try {
+      const res = await fetch("/api/admin/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+      toast.success("Settings saved. Changes are live on the website.");
+    } catch {
+      toast.error("Couldn't reach the server. Check your connection and try again.");
+    }
   };
 
   return (

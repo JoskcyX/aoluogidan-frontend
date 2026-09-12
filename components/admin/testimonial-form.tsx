@@ -34,16 +34,20 @@ export function TestimonialForm({
   const isAnonymous = watch("isAnonymous");
 
   const onSubmit = async (values: TestimonialFormValues) => {
-    const res = await fetch(testimonialId ? `/api/admin/testimonials/${testimonialId}` : "/api/admin/testimonials", {
-      method: testimonialId ? "PATCH" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...values, imageUrl }),
-    });
-    const body = await res.json().catch(() => ({}));
-    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-    toast.success(testimonialId ? "Testimonial updated." : "Testimonial added.");
-    router.push("/admin/testimonials");
-    router.refresh();
+    try {
+      const res = await fetch(testimonialId ? `/api/admin/testimonials/${testimonialId}` : "/api/admin/testimonials", {
+        method: testimonialId ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, imageUrl }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+      toast.success(testimonialId ? "Testimonial updated." : "Testimonial added.");
+      router.push("/admin/testimonials");
+      router.refresh();
+    } catch {
+      toast.error("Couldn't reach the server. Check your connection and try again.");
+    }
   };
 
   return (

@@ -1,20 +1,8 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
 import { api } from "@/lib/api";
-
-// Self-hosted via Next.js at build time (no runtime request to Google's CDN).
-// This is what actually guarantees Poppins renders everywhere, including
-// in-app browsers (TikTok, Instagram, etc.) that block third-party font
-// requests and silently fall back to the device's system font instead.
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "900"],
-  variable: "--font-poppins",
-  display: "swap",
-});
 
 const SITE_URL = process.env.SITE_URL ?? "https://aoluogidan.com";
 
@@ -60,7 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const gaId = settings?.googleAnalyticsId;
 
   return (
-    <html lang="en" className={poppins.variable}>
+    <html lang="en">
       <body className="antialiased">
         {children}
         <Toaster position="top-right" toastOptions={{ duration: 4000 }} />

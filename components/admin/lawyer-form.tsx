@@ -82,22 +82,26 @@ export function LawyerForm({
   const onSubmit = async (values: LawyerFormValues) => {
     const payload = { ...values, photoUrl };
 
-    const res = await fetch(lawyerId ? `/api/admin/lawyers/${lawyerId}` : "/api/admin/lawyers", {
-      method: lawyerId ? "PATCH" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const res = await fetch(lawyerId ? `/api/admin/lawyers/${lawyerId}` : "/api/admin/lawyers", {
+        method: lawyerId ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    const body = await res.json().catch(() => ({}));
+      const body = await res.json().catch(() => ({}));
 
-    if (!res.ok) {
-      toast.error(body.error ?? "Something went wrong.");
-      return;
+      if (!res.ok) {
+        toast.error(body.error ?? "Something went wrong.");
+        return;
+      }
+
+      toast.success(lawyerId ? "Lawyer updated." : "Lawyer added.");
+      router.push("/admin/lawyers");
+      router.refresh();
+    } catch {
+      toast.error("Couldn't reach the server. Check your connection and try again.");
     }
-
-    toast.success(lawyerId ? "Lawyer updated." : "Lawyer added.");
-    router.push("/admin/lawyers");
-    router.refresh();
   };
 
   return (

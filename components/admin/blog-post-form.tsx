@@ -39,17 +39,21 @@ export function BlogPostForm({
   });
 
   const submit = async (values: BlogPostFormValues, status: "DRAFT" | "PUBLISHED") => {
-    const payload = { ...values, status, featuredImageUrl: imageUrl };
-    const res = await fetch(postId ? `/api/admin/blog/${postId}` : "/api/admin/blog", {
-      method: postId ? "PATCH" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    const body = await res.json().catch(() => ({}));
-    if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
-    toast.success(status === "PUBLISHED" ? "Article published." : "Draft saved.");
-    router.push("/admin/blog");
-    router.refresh();
+    try {
+      const payload = { ...values, status, featuredImageUrl: imageUrl };
+      const res = await fetch(postId ? `/api/admin/blog/${postId}` : "/api/admin/blog", {
+        method: postId ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) return toast.error(body.error ?? "Something went wrong.");
+      toast.success(status === "PUBLISHED" ? "Article published." : "Draft saved.");
+      router.push("/admin/blog");
+      router.refresh();
+    } catch {
+      toast.error("Couldn't reach the server. Check your connection and try again.");
+    }
   };
 
   return (
@@ -59,15 +63,6 @@ export function BlogPostForm({
           <Label htmlFor="title" required>Title</Label>
           <Input id="title" {...register("title")} />
           <FieldError message={errors.title?.message} />
-        </div>
-        <div className="mt-5">
-          <Label htmlFor="authorName">Author</Label>
-          <Input
-            id="authorName"
-            {...register("authorName")}
-            placeholder="Defaults to your name if left blank"
-          />
-          <FieldError message={errors.authorName?.message} />
         </div>
         <div className="mt-5">
           <Label htmlFor="excerpt">Excerpt</Label>
