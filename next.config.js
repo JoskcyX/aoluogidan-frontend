@@ -47,6 +47,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
+              "frame-src 'self' https://www.google.com https://maps.google.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
