@@ -37,17 +37,22 @@ export default async function ContactPage() {
             </div>
           )}
 
-          {(settings?.mapLatitude != null && settings?.mapLongitude != null) || settings?.address ? (
+          {settings?.mapLatitude != null && settings?.mapLongitude != null ? (
             <div className="mt-8 aspect-video overflow-hidden border border-line">
               <iframe
                 title="Office location"
                 className="h-full w-full"
                 loading="lazy"
-                src={
-                  settings?.mapLatitude != null && settings?.mapLongitude != null
-                    ? `https://maps.google.com/maps?q=${settings.mapLatitude},${settings.mapLongitude}&z=16&output=embed`
-                    : `https://maps.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`
-                }
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=${settings.mapLongitude - 0.006}%2C${settings.mapLatitude - 0.006}%2C${settings.mapLongitude + 0.006}%2C${settings.mapLatitude + 0.006}&layer=mapnik&marker=${settings.mapLatitude}%2C${settings.mapLongitude}`}
+              />
+            </div>
+          ) : settings?.address ? (
+            <div className="mt-8 aspect-video overflow-hidden border border-line">
+              <iframe
+                title="Office location"
+                className="h-full w-full"
+                loading="lazy"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`}
               />
             </div>
           ) : null}
