@@ -103,6 +103,21 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
             <Label htmlFor="address">Office Address</Label>
             <Textarea id="address" rows={2} {...register("address")} />
           </div>
+          <div>
+            <Label htmlFor="mapLatitude">Map Latitude</Label>
+            <Input id="mapLatitude" type="number" step="any" placeholder="e.g. 9.0765" {...register("mapLatitude")} />
+          </div>
+          <div>
+            <Label htmlFor="mapLongitude">Map Longitude</Label>
+            <Input id="mapLongitude" type="number" step="any" placeholder="e.g. 7.3986" {...register("mapLongitude")} />
+          </div>
+          <p className="sm:col-span-2 -mt-3 text-xs text-slate">
+            Used to pin the office map on the Contact page. Find these by right-clicking your office location on{" "}
+            <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="underline">
+              Google Maps
+            </a>{" "}
+            and copying the coordinates. If left blank, the map falls back to the text address above (less reliable).
+          </p>
           <div className="sm:col-span-2">
             <Label htmlFor="workingHours">Working Hours</Label>
             <Textarea id="workingHours" rows={3} {...register("workingHours")} />

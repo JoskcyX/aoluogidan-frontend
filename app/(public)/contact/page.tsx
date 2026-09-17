@@ -37,16 +37,20 @@ export default async function ContactPage() {
             </div>
           )}
 
-          {settings?.address && (
+          {(settings?.mapLatitude != null && settings?.mapLongitude != null) || settings?.address ? (
             <div className="mt-8 aspect-video overflow-hidden border border-line">
               <iframe
                 title="Office location"
                 className="h-full w-full"
                 loading="lazy"
-                src={`https://maps.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`}
+                src={
+                  settings?.mapLatitude != null && settings?.mapLongitude != null
+                    ? `https://maps.google.com/maps?q=${settings.mapLatitude},${settings.mapLongitude}&z=16&output=embed`
+                    : `https://maps.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`
+                }
               />
             </div>
-          )}
+          ) : null}
         </Reveal>
 
         <Reveal delay={120} className="lg:col-span-3">
